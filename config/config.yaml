@@ -1,0 +1,9 @@
+vagrant_box: "centos/8" 
+vagrant_box_version: "1905.1"
+vagrant_ip: 192.168.11.
+vagrant_hostname: vagrant
+vagrant_memory: 512 
+vagrant_directory: /vagrant
+vagrant_cpu: 1
+#vagrant_box_check_update: false
+vagrant_domain_name: local 

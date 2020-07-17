@@ -1,0 +1,2 @@
+vboxmanage hostonlyif remove "VirtualBox Host-Only Ethernet Adapter"
+vboxmanage hostonlyif remove "VirtualBox Host-Only Ethernet Adapter #2"

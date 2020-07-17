@@ -30,28 +30,30 @@
 # Versions       Date         Programmer, Modification
 # -----------    ----------   -------------------------------------------
 # Version=1.00   07/07/2020 - Carlos Ijalba, Original.
-  Version=1.12 # 15/07/2020 - Carlos Ijalba, Latest updates.
+  Version=1.13 # 16/07/2020 - Carlos Ijalba, Latest updates.
 #
 #########################################################################
 #set -x
 
 #Var ----------------------------------------- Variable Declarations ####
 
+#Function ------------------------------------ Function Declarations ####
+
+#Main ---------------------------------------------------- Main Code ####
+
 echo ">>> Starting ansible_install.sh v$Version script."
 
 echo ">> repo updates."
-dnf makecache -y
-dnf install epel-release -y
-dnf makecache -y
+yum update 
 
 echo ">> ansible install."
 # Install Ansible.
-dnf install ansible -y
+yum install ansible -y
 
 echo ">> tools install."
 # Install neccesary tools for our scripts.
-dnf install expect -y
-dnf install dos2unix -y
+yum install expect -y
+yum install dos2unix -y
 
 echo ">> set timezone."
 # if you have installed a minimal server, you'll need to install tzdata if you want to change to other TZs:
@@ -68,8 +70,11 @@ echo vagrant | sudo -S su - vagrant -c "ssh-keygen -t rsa -f /home/vagrant/.ssh/
 
 
 echo ">> Checks --- --- --- ---"
+echo ">> ansible: ---"
 ansible --version
+echo ">> expect: ---"
 expect -v
+echo ">> dos2unix: ---"
 dos2unix --version
 
 echo ">>> Finished ansible_install.sh."

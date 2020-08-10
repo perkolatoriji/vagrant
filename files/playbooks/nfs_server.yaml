@@ -37,4 +37,3 @@
       service: name=nfs-kernel-server state=restarted
       tags: nfs_server
 
-   

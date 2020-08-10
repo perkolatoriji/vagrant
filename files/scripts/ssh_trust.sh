@@ -20,7 +20,7 @@ set user     [lindex $argv 0]
 set pass     [lindex $argv 1]
 set hostname [lindex $argv 2]
 # lower expect's default timeout:
-set timeout 60
+set timeout 30
 
 # Main
 

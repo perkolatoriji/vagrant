@@ -26,7 +26,7 @@
 # Versions       Date         Programmer, Modification
 # -----------    ----------   -------------------------------------------
 # Version=1.00   07/07/2020 - Carlos Ijalba, Original.
-  Version=1.19 # 10/07/2020 - Carlos Ijalba, Latest updates.
+  Version=1.24 # 07/08/2020 - Carlos Ijalba, Latest updates.
 #
 #########################################################################
 #set -x
@@ -38,6 +38,7 @@ PASSWORD=vagrant
 HOSTS="/etc/hosts"
 AHOSTS="/etc/ansible/hosts"
 PBOOKS="/home/vagrant/playbooks"
+PSCRIPTS="/home/vagrant/scripts"
 
 
 #Function ------------------------------------------ Local Functions ####
@@ -72,10 +73,10 @@ fi
 echo ">>> ansible_config  v$Version - $Copyright - Configuring ansible infra in `hostname`. `date`"
 
 echo ">> populating /etc/hosts with our environment"
-echo "192.168.11.11	prom1.local	ansible"  | sudo tee -a $HOSTS 
-echo "192.168.11.12	graf1.local"		  | sudo tee -a $HOSTS 
-echo "192.168.11.13	web1.local	nginx"	  | sudo tee -a $HOSTS 
-echo "192.168.11.14	web2.local	apache2"  | sudo tee -a $HOSTS
+echo "192.168.11.11	graf1.local"		  | sudo tee -a $HOSTS 
+echo "192.168.11.12	web1.local	nginx"	  | sudo tee -a $HOSTS 
+echo "192.168.11.13	web2.local	apache2"  | sudo tee -a $HOSTS
+echo "192.168.11.14	prom1.local	ansible"  | sudo tee -a $HOSTS 
 
 echo ">> populating /etc/ansible/hosts file"
 sudo mkdir -p /etc/ansible 
@@ -89,20 +90,21 @@ echo "web1.local"   | sudo tee -a $AHOSTS
 echo "[apache2]"    | sudo tee -a $AHOSTS
 echo "web2.local"   | sudo tee -a $AHOSTS
 
-dos2unix ~/scripts/ssh_trust.sh
+cd $PSCRIPTS
+dos2unix *.sh
 if_error "problem converting scripts to Linux format (check dos2unix tool)." return "scripts converted to Linux format."
 
-chmod +x ~/scripts/ssh_trust.sh
+chmod +x *.sh 
 if_error "problem making scripts executable." exit "scripts made executable."
 
 echo "o-> setup SSH trust relationship using Expect..."
-~/scripts/ssh_trust.sh $USER $PASSWORD "prom1.local" 
+$PSCRIPTS/ssh_trust.sh $USER $PASSWORD "prom1.local" 
 if_error "SSH trust rel prom1 failed (check ssh_pass.sh)." return "prom1 trusted."
-~/scripts/ssh_trust.sh $USER $PASSWORD "graf1.local" 
+$PSCRIPTS/ssh_trust.sh $USER $PASSWORD "graf1.local" 
 if_error "SSH trust rel graf1 failed (check ssh_pass.sh)." return "graf1 trusted."
-~/scripts/ssh_trust.sh $USER $PASSWORD "web1.local" 
+$PSCRIPTS/ssh_trust.sh $USER $PASSWORD "web1.local" 
 if_error "SSH trust rel web1 failed (check ssh_pass.sh)." return "web1 trusted."
-~/scripts/ssh_trust.sh $USER $PASSWORD "web2.local" 
+$PSCRIPTS/ssh_trust.sh $USER $PASSWORD "web2.local" 
 if_error "SSH trust rel web2 failed (check ssh_pass.sh)." return "web2 trusted."
 
 echo ">> doing some quick ansible CHECKS..."
@@ -112,11 +114,14 @@ ansible -m shell -a "cat /etc/issue" all
 if_error "ansible config has failed somewhere." exit "ansible configured OK."
 
 echo ">> setup infrastructure using ansible playbooks..."
-#ansible-playbook $PBOOKS/prometheus_install.yaml
-#if_error "prometheus install failed." return "prometheus installed."
+ansible-playbook $PBOOKS/apt_upgrade.yaml
+if_error "all servers update/upgrade failed." return "all servers repos have been updated & upgraded, Nice!."
 
-#ansible-playbook $PBOOKS/grafana_install.yaml
-#if_error "grafana install failed." return "grafana installed."
+ansible-playbook $PBOOKS/prometheus_install.yaml
+if_error "prometheus install failed." return "prometheus installed."
+
+ansible-playbook $PBOOKS/grafana_install.yaml
+if_error "grafana install failed." return "grafana installed."
 
 ansible-playbook $PBOOKS/nginx_install.yaml
 if_error "nginx install failed (check ansible-playbook)." return "nginx installed."

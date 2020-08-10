@@ -30,94 +30,30 @@
 # Versions       Date         Programmer, Modification
 # -----------    ----------   -------------------------------------------
 # Version=1.00   07/07/2020 - Carlos Ijalba, Original.
-  Version=1.16 # 05/08/2020 - Carlos Ijalba, Latest updates.
+  Version=1.13 # 16/07/2020 - Carlos Ijalba, Latest updates.
 #
 #########################################################################
-set -x
+#set -x
 
 #Var ----------------------------------------- Variable Declarations ####
 
-PATH="/home/vagrant/scripts"
-apptool="apt"
-
 #Function ------------------------------------ Function Declarations ####
-
-function init_func
-###########################################
-# funtion to initialize the OS repository
-###########################################
-{
-$apptool update -y
-$apptool install epel-release -y
-}
-
-function update_func
-###########################################
-# funtion to initialize the OS repository
-###########################################
-{
-$apptool update -y
-}
-
-function ansible_install_func
-###########################################
-# funtion to install ansible 
-###########################################
-{
-$apptool install ansible -y
-}
-
-function tools_install_func
-###########################################
-# funtion to install needed tools 
-###########################################
-{
-$apptool install python3 -y
-$apptool install expect -y
-$apptool install dos2unix -y
-}
-
-function tools_check_func
-###########################################
-# funtion to check the tools versions and installations 
-###########################################
-{
-echo ">> python: ---"
-python --version
-echo ">> ansible: ---"
-ansible --version
-echo ">> expect: ---"
-expect -v
-echo ">> dos2unix: ---"
-dos2unix --version
-}
 
 #Main ---------------------------------------------------- Main Code ####
 
 echo ">>> Starting ansible_install.sh v$Version script."
 
-#echo ">> identifying OS..."
-#case OS=`$PATH/which_os.sh -b` in
-#
-#  rhel)	apptool="yum"
-#  		;;
-#  debian)	apptool="apt"
-#  		;;
-#  *)		apptool="apt"	# by default assume it's a debian-based distro
-#    		;;
-#esac
-
 echo ">> repo updates."
-init_func
-
-echo ">> tools install."
-# Install neccesary tools for our scripts.
-tools_install_func
+yum update 
 
 echo ">> ansible install."
 # Install Ansible.
-update_func
-ansible_install_func
+yum install ansible -y
+
+echo ">> tools install."
+# Install neccesary tools for our scripts.
+yum install expect -y
+yum install dos2unix -y
 
 echo ">> set timezone."
 # if you have installed a minimal server, you'll need to install tzdata if you want to change to other TZs:
@@ -125,17 +61,20 @@ echo ">> set timezone."
 # Set timezone to UTC, or if you prefer to use your local TZ, modify this:
 timedatectl set-timezone UTC
 
-echo ">> vagrant user tweaks."
-# first we add vagrant user to sudo:
+echo ">> add vagrant user to sudo."
 echo "vagrant        ALL=(ALL)       NOPASSWD: ALL" >> /etc/sudoers
-# then we remove the requiretty def parameter from sudoers file if it exists:
 sed -i "s/^.*requiretty/#Defaults requiretty/" /etc/sudoers
 
 echo ">> vagrant SSH keygen."
-# now we generate an ssh key for the user vagrant:
 echo vagrant | sudo -S su - vagrant -c "ssh-keygen -t rsa -f /home/vagrant/.ssh/id_rsa -q -P ''"
 
+
 echo ">> Checks --- --- --- ---"
-tools_check
+echo ">> ansible: ---"
+ansible --version
+echo ">> expect: ---"
+expect -v
+echo ">> dos2unix: ---"
+dos2unix --version
 
 echo ">>> Finished ansible_install.sh."

@@ -26,7 +26,7 @@
 # Versions       Date         Programmer, Modification
 # -----------    ----------   -------------------------------------------
 # Version=1.00   07/07/2020 - Carlos Ijalba, Original.
-  Version=1.24 # 07/08/2020 - Carlos Ijalba, Latest updates.
+  Version=1.25 # 10/08/2020 - Carlos Ijalba, Latest updates.
 #
 #########################################################################
 #set -x
@@ -73,7 +73,7 @@ fi
 echo ">>> ansible_config  v$Version - $Copyright - Configuring ansible infra in `hostname`. `date`"
 
 echo ">> populating /etc/hosts with our environment"
-echo "192.168.11.11	graf1.local"		  | sudo tee -a $HOSTS 
+echo "192.168.11.11	graf1.local     grafana"  | sudo tee -a $HOSTS 
 echo "192.168.11.12	web1.local	nginx"	  | sudo tee -a $HOSTS 
 echo "192.168.11.13	web2.local	apache2"  | sudo tee -a $HOSTS
 echo "192.168.11.14	prom1.local	ansible"  | sudo tee -a $HOSTS 
@@ -99,13 +99,9 @@ if_error "problem making scripts executable." exit "scripts made executable."
 
 echo "o-> setup SSH trust relationship using Expect..."
 $PSCRIPTS/ssh_trust.sh $USER $PASSWORD "prom1.local" 
-if_error "SSH trust rel prom1 failed (check ssh_pass.sh)." return "prom1 trusted."
 $PSCRIPTS/ssh_trust.sh $USER $PASSWORD "graf1.local" 
-if_error "SSH trust rel graf1 failed (check ssh_pass.sh)." return "graf1 trusted."
 $PSCRIPTS/ssh_trust.sh $USER $PASSWORD "web1.local" 
-if_error "SSH trust rel web1 failed (check ssh_pass.sh)." return "web1 trusted."
 $PSCRIPTS/ssh_trust.sh $USER $PASSWORD "web2.local" 
-if_error "SSH trust rel web2 failed (check ssh_pass.sh)." return "web2 trusted."
 
 echo ">> doing some quick ansible CHECKS..."
 ansible -m ping all

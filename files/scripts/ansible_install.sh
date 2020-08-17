@@ -97,7 +97,7 @@ dos2unix --version
 echo ">>> Starting ansible_install.sh v$Version script."
 
 #echo ">> identifying OS..."
-#case OS=`$PATH/which_os.sh -b` in
+#case OS=`$PATH/which_os.sh -lb` in
 #
 #  rhel)	apptool="yum"
 #  		;;
@@ -119,21 +119,15 @@ echo ">> ansible install."
 update_func
 ansible_install_func
 
-echo ">> set timezone."
-# if you have installed a minimal server, you'll need to install tzdata if you want to change to other TZs:
-#yum install tzdata
-# Set timezone to UTC, or if you prefer to use your local TZ, modify this:
-timedatectl set-timezone UTC
-
-echo ">> vagrant user tweaks."
+#echo ">> vagrant user tweaks."
 # first we add vagrant user to sudo:
-echo "vagrant        ALL=(ALL)       NOPASSWD: ALL" >> /etc/sudoers
+#echo "vagrant        ALL=(ALL)       NOPASSWD: ALL" >> /etc/sudoers
 # then we remove the requiretty def parameter from sudoers file if it exists:
-sed -i "s/^.*requiretty/#Defaults requiretty/" /etc/sudoers
+#sed -i "s/^.*requiretty/#Defaults requiretty/" /etc/sudoers
 
-echo ">> vagrant SSH keygen."
+#echo ">> vagrant SSH keygen."
 # now we generate an ssh key for the user vagrant:
-echo vagrant | sudo -S su - vagrant -c "ssh-keygen -t rsa -f /home/vagrant/.ssh/id_rsa -q -P ''"
+#echo vagrant | sudo -S su - vagrant -c "ssh-keygen -t rsa -f /home/vagrant/.ssh/id_rsa -q -P ''"
 
 echo ">> Checks --- --- --- ---"
 tools_check

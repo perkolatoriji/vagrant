@@ -12,7 +12,7 @@
 # Version=1.04 # 17/07/2020 Carlos Ijalba, Added cygwin detection.
 # Version=1.05 # 23/07/2020 Carlos Ijalba, Added linux family detection.
 # Version=1.07 # 24/07/2020 Carlos Ijalba, Added linux distro detection & families flag.
-  Version=1.08 # 06/08/2020 Carlos Ijalba, Added linux distro batchmode & checked in diff distros.
+  Version=1.09 # 06/08/2020 Carlos Ijalba, Added linux distro batchmode & checked in diff distros.
 #
 ###########################################################################################################################
 
@@ -119,7 +119,7 @@ case "$os" in
                               ;;
                   esac
                   cpu=`uname -m 2>/dev/null`
-                  osd=`for OS in $(find /etc -maxdepth 1 -type f \( ! -wholename /etc/os-release ! -wholename /etc/lsb-release ! -wholename /etc/\*release -o -wholename /etc/\*version \ ) 2>/dev/null; do echo ${OS:5:${#OS}-13}; done;`
+                  osd=`for OS in $(find /etc -maxdepth 1 -type f \( ! -wholename /etc/os-release ! -wholename /etc/lsb-release ! -wholename /etc/\*release -o -wholename /etc/\*version \) 2>/dev/null; do echo ${OS:5:${#OS}-13}; done;`
                   ;;
   *darwin*|*rhapsody*) osf="macosx"
                   cpu=`uname -p 2>/dev/null`
@@ -135,13 +135,13 @@ esac
 case "$1" in
   -h|--help)  usage
               ;;
-  -b)         printf $osf -c
+  -b)         printf $osf
               ;;
   -v)         echo ">>> which_os   Version: $Version."
               ;;
   -l)         echo ">>> OS Identified as: $osf, and CPU as $cpu. Linux distro: $osd"
               ;;
-  -lb)        printf $osd -c
+  -lb)        printf $osd
               ;;
   -f)         families
               ;;

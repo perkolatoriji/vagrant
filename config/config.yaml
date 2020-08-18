@@ -1,9 +1,63 @@
-vagrant_box: "centos/8" 
-vagrant_box_version: "1905.1"
-vagrant_ip: 192.168.11.
+# Vagrant Config File -------------------------
+#
+# Carlos Ijalba 2020 - v1.03
+#
+# - Updated: 12/08/2020
+#
+#----------------------------------------------
+
+#vagrant_box_check_update: false
+
+#----- OS List: -------------------------------
+
+#----- Official OS boxes: ---------------------
+# Official Ubuntu Server 18.04 LTS (Latest)   x32:
+#vagrant_box: "ubuntu/bionic32" 
+# Official Ubuntu Server 16.04 LTS (Previous) x32:
+#vagrant_box: "ubuntu/xenial32" 
+# Official Ubuntu Server 14.04 LTS EOS        x32:
+#vagrant_box: "ubuntu/trusty32"
+# Official Ubuntu Server 18.04 LTS (Latest)   x64:
+#vagrant_box: "ubuntu/bionic64" 
+#vagrant_box_version: "20200804.0.0" 
+# Official Ubuntu Server 16.04 LTS (Previous) x64:
+#vagrant_box: "ubuntu/xenial64" 
+#vagrant_box_version: "20200805.0.0" 
+# Official Ubuntu Server 14.04 LTS EOS        x64:
+#vagrant_box: "ubuntu/trusty64"
+# Official CentOS 8 (Latest)                  x64:
+#vagrant_box: "centos/8"
+#vagrant_box_version: "1905.1"
+# Official CentOS 7 (Previous)                x64:
+#vagrant_box: "centos/7"
+#vagrant_box_version: "2004.01"
+# Official CentOS 6 EOS                       x64:
+#vagrant_box: "centos/6"
+#vagrant_box_version: "2004.01"
+# Official ArchLinux (Latest)                 x64:
+#vagrant_box: "archlinux/archlinux"
+#vagrant_box_version: "2020.08.06"
+# Vagrant Vanilla Debian 10                   x64:
+#vagrant_box: "debian/buster64"
+
+#---- 3rd party Proj. boxes: -----------------
+#Hashicorp box Ubuntu 18:
+#vagrant_box: "hashicorp/bionic64"
+#Hashicorp box CentOS 7.4:
+#vagrant_box: "hashicorp-vagrant/centos-7.4"
+
+# Bento Boxes, Debian 10:
+vagrant_box: "bento/debian-10" 
+
+#vagrant_box: "generic/debian10"
+#vagrant_box_version: "3.0.22"
+
+#----- Box Details: ---------------------------
 vagrant_hostname: vagrant
 vagrant_memory: 512 
-vagrant_directory: /vagrant
 vagrant_cpu: 1
-#vagrant_box_check_update: false
+vagrant_ip: 192.168.11.
+vagrant_directory: /vagrant
 vagrant_domain_name: local 
+vagrant_ip: 192.168.11.
+

@@ -16,7 +16,7 @@
 #
 # -Author:		Carlos Ijalba
 #
-# -Version:		1.23
+# -Version:		1.34, 10/08/2020
 #
 #################################################################
 
@@ -43,39 +43,43 @@ SSH     = "22"                                  # SSH port prefix, suffix will b
 
 servers = [
   {
-    :hostname => "prom1." + "#{DOMAIN}",
-    :box => "#{VM}",
-    :box_ver => "#{VM_VER}",
-    :ram => "#{RAM}",
-    :ip => "#{NETWORK}" + "11",
-    :ssh_port => "#{SSH}" + "11",
-    :ansible_install => "./files/scripts/ansible_install.sh",
-    :ansible_config  => "./files/scripts/ansible_config.sh",
-    :source          => "./files",
-    :destination     => "/home/vagrant"
-  },
-  {
     :hostname => "graf1." + "#{DOMAIN}",
     :box => "#{VM}",
-    :box_ver => "#{VM_VER}",
+#   :box_ver => "#{VM_VER}",
     :ram => "#{RAM}",
-    :ip => "#{NETWORK}" + "12",
-    :ssh_port => "#{SSH}" + "12"
+    :updater         => "./files/scripts/updater_deb.sh",
+    :ip => "#{NETWORK}" + "11",
+    :ssh_port => "#{SSH}" + "11"
   },
   {
     :hostname => "web1." + "#{DOMAIN}",
-    :box => "bento/debian-10.3",
-#   :box_ver => "#{VM_VER}",
+    :box => "#{VM}",
     :ram => "#{RAM}",
-    :ip => "#{NETWORK}" + "13",
-    :ssh_port => "#{SSH}" + "13"
+    :updater         => "./files/scripts/updater_deb.sh",
+    :ip => "#{NETWORK}" + "12",
+    :ssh_port => "#{SSH}" + "12",
+    :source          => "./files",
+    :destination     => "/home/vagrant"
   },
   {
     :hostname => "web2." + "#{DOMAIN}",
     :box => "#{VM}",
     :ram => "#{RAM}",
+    :updater         => "./files/scripts/updater_deb.sh",
+    :ip => "#{NETWORK}" + "13",
+    :ssh_port => "#{SSH}" + "13"
+  },
+  {
+    :hostname => "prom1." + "#{DOMAIN}",
+    :box => "#{VM}",
+    :ram => "#{RAM}",
     :ip => "#{NETWORK}" + "14",
-    :ssh_port => "#{SSH}" + "14"
+    :ssh_port => "#{SSH}" + "14",
+    :updater         => "./files/scripts/updater_deb.sh",
+    :ansible_install => "./files/scripts/ansible_deb.sh",
+    :ansible_config  => "./files/scripts/ansible_config.sh",
+    :source          => "./files",
+    :destination     => "/home/vagrant"
   }]
 
 
@@ -99,24 +103,42 @@ Vagrant.configure(2) do |config|
         vbox.customize ["modifyvm", :id, "--name", machine[:hostname]]
       end # provider virtualbox ##
 
+## File Provisioner to copy our scripts to the vagrant boxes that need them:
+      if (!machine[:source].nil?)
+        node.vm.provision :file, source: machine[:source], destination: machine[:destination], run: "always"
+      end
+
+## Shell Provisioner to update the repos of our vagrant boxes:
+      if (!machine[:updater].nil?)
+        if File.exist?(machine[:updater])
+          node.vm.provision :shell, privileged: true, path: machine[:updater], run: "once"
+        end
+      end
+
 ## Ansible Install & Configure:
       if (!machine[:ansible_install].nil?)
         if File.exist?(machine[:ansible_install])
-	  node.vm.provision :shell, path: machine[:ansible_install]
-	end
+          node.vm.provision :shell, privileged: true, path: machine[:ansible_install], run: "once"
+        end
         if File.exist?(machine[:ansible_config])
-          node.vm.provision :file, source: machine[:source], destination: machine[:destination]
-          node.vm.provision :shell, privileged: false, path: machine[:ansible_config]
+#         node.vm.provision :file, source: machine[:source], destination: machine[:destination], run: "always"
+          node.vm.provision :shell, privileged: false, path: machine[:ansible_config], run: "once"
         end
       end # ansible
 
     end   # define
   end     # each
 
+  # VM boot timeout increase to 8 minutes instead of the default 300, for lazy boxes:
+  config.vm.boot_timeout = 480
+
+  # Shell provisioner to create SSH key and set the correct permissions:
   config.vm.provision :shell,
-  :inline => "echo 'appending SSH public key to ~vagrant/.ssh/authorized_keys' && echo '#{rsa_pub}' >> /home/vagrant/.ssh/authorized_keys && chmod 600 /home/vagrant/.ssh/authorized_keys"
+  :inline => "echo 'appending SSH public key to ~vagrant/.ssh/authorized_keys' && echo '#{rsa_pub}' >> /home/vagrant/.ssh/authorized_keys && chmod 700 /home/vagrant/.ssh && chmod 600 /home/vagrant/.ssh/authorized_keys"
+  
+  # don't let vagrant insert it's insecure SSH keypair:
   config.ssh.insert_key = false
+
 end	# configure
 
 # End
-

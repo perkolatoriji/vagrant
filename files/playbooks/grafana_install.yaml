@@ -1,5 +1,5 @@
 ---
-- hosts: graf1.local 
+- hosts: grafana 
   tasks:
     - name: ensure nginx is at the latest version
       apt: name=nginx state=latest

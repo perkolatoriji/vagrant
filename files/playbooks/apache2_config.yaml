@@ -1,0 +1,33 @@
+---
+- hosts: apache2
+  become: true
+  tasks:
+    - name: ensure apache2 is at the latest version
+      apt: name=apache2 state=latest
+    - name: stop apache2, to make changes
+      service:
+          name: apache2
+          state: stopped
+    - name: remove the default-web site-enabled link
+      file:
+        path: /etc/apache2/sites-enabled/default
+        state: absent     
+    - name: copy the apache2 config file for static-site to sites-available
+      copy:
+        src: /home/vagrant/config/static_site.cfg
+        dest: /etc/apache2/sites-available/static_site.cfg
+    - name: create symlink in sites-enabled
+      file:
+        src: /etc/apache2/sites-available/static_site.cfg
+        dest: /etc/apache2/sites-enabled/static_site.cfg
+        state: link
+    - name: copy the content of the new web site to /var/www/
+      copy:
+        src: /home/vagrant/config/static-site/
+        dest: /var/www/static-site
+    - name: restart apache2 & enjoy
+      service:
+        name: apache2
+        state: restarted
+        
+# https://www.scaleway.com/en/docs/how-to-install-apache-on-ansible/

@@ -10,16 +10,16 @@
           state: stopped
     - name: remove the default-web site-enabled link
       file:
-        path: /etc/apache2/sites-enabled/default
+        path: /etc/apache2/sites-enabled/000-default.conf
         state: absent     
     - name: copy the apache2 config file for static-site to sites-available
       copy:
-        src: /home/vagrant/config/static_site.cfg
-        dest: /etc/apache2/sites-available/static_site.cfg
+        src: /home/vagrant/config/static_site.conf
+        dest: /etc/apache2/sites-available/static_site.conf
     - name: create symlink in sites-enabled
       file:
-        src: /etc/apache2/sites-available/static_site.cfg
-        dest: /etc/apache2/sites-enabled/static_site.cfg
+        src: /etc/apache2/sites-available/static_site.conf
+        dest: /etc/apache2/sites-enabled/static_site.conf
         state: link
     - name: copy the content of the new web site to /var/www/
       copy:

@@ -1,27 +1,31 @@
 ---
 - hosts: nginx
+  become: true
   tasks:
     - name: ensure nginx is at the latest version
       apt: name=nginx state=latest
-      become: true
-    - name: start nginx
+    - name: stop nginx, to make changes
       service:
           name: nginx
-          state: started
-    - name: copy the nginx config file and restart nginx
+          state: stopped
+    - name: remove the default-web site-enabled link
+      file:
+        path: /etc/nginx/sites-enabled/default
+        state: absent     
+    - name: copy the nginx config file for static-site to sites-available
       copy:
-        src: ./files/config/static_site.cfg
+        src: /home/vagrant/config/static_site.cfg
         dest: /etc/nginx/sites-available/static_site.cfg
-    - name: create symlink
+    - name: create symlink in sites-enabled
       file:
         src: /etc/nginx/sites-available/static_site.cfg
-        dest: /etc/nginx/sites-enabled/default
+        dest: /etc/nginx/sites-enabled/static_site.cfg
         state: link
-    - name: copy the content of the web site
+    - name: copy the content of the new web site to /var/www/
       copy:
-        src: ./files/config/static-site/
-        dest: /home/foo/static-site
-    - name: restart nginx
+        src: /home/vagrant/config/static-site/
+        dest: /var/www/static-site
+    - name: restart nginx & enjoy
       service:
         name: nginx
         state: restarted

@@ -124,8 +124,8 @@ Vagrant.configure(2) do |config|
         end
         if File.exist?(machine[:ansible_config])
           node.vm.provision :shell, privileged: false, path: machine[:ansible_config], run: "once"
-          node.vm.provision :shell, :inline => "ansible-playbook ./playbooks/nginx_config.yaml"
-          node.vm.provision :shell, :inline => "ansible-playbook ./playbooks/apache2_config.yaml"
+          node.vm.provision :shell, privileged: true, :inline => "ansible-playbook ./playbooks/nginx_config.yaml"
+          node.vm.provision :shell, privileged: true, :inline => "ansible-playbook ./playbooks/apache2_config.yaml"
         end
       end # ansible
 

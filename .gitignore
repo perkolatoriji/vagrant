@@ -1,3 +1,17 @@
-.swp
+# DevOps Project1 gitignore file
+
+# Generic Files
+*.swp
+*.bak
+*.back
+*.log
+
+# Specific Folders
 /.vagrant/*
 /virtualbox/*
+
+# System Files
+.DS_Store
+thumbs.db
+.idea/workspace.xml
+

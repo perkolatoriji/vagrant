@@ -16,7 +16,7 @@
 #
 # -Author:		Carlos Ijalba
 #
-# -Version:		1.34, 10/08/2020
+# -Version:		1.35, 03/09/2020
 #
 #################################################################
 
@@ -107,25 +107,25 @@ Vagrant.configure(2) do |config|
 
 ## File Provisioner to copy our scripts to the vagrant boxes that need them:
       if (!machine[:source].nil?)
-        node.vm.provision :file, source: machine[:source], destination: machine[:destination], run: "once"
+        node.vm.provision "file", source: machine[:source], destination: machine[:destination], run: "once"
       end
 
 ## Shell Provisioner to update the repos of our vagrant boxes:
       if (!machine[:updater].nil?)
         if File.exist?(machine[:updater])
-          node.vm.provision :shell, privileged: true, path: machine[:updater], run: "once"
+          node.vm.provision "shell", privileged: true, path: machine[:updater], run: "once"
         end
       end
 
 ## Ansible Install & Configure:
       if (!machine[:ansible_install].nil?)
         if File.exist?(machine[:ansible_install])
-          node.vm.provision :shell, privileged: true, path: machine[:ansible_install], run: "once"
+          node.vm.provision "shell", privileged: true, path: machine[:ansible_install], run: "once"
         end
         if File.exist?(machine[:ansible_config])
-          node.vm.provision :shell, privileged: false, path: machine[:ansible_config], run: "once"
-          node.vm.provision :shell, privileged: true, :inline => "ansible-playbook ./playbooks/nginx_config.yaml"
-          node.vm.provision :shell, privileged: true, :inline => "ansible-playbook ./playbooks/apache2_config.yaml"
+          node.vm.provision "shell", path: machine[:ansible_config], run: "once"
+          node.vm.provision "shell", inline: "ansible-playbook ./playbooks/nginx_config.yaml"
+          node.vm.provision "shell", inline: "ansible-playbook ./playbooks/apache2_config.yaml"
         end
       end # ansible
 

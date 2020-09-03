@@ -6,8 +6,8 @@
       apt: name=nginx state=latest
     - name: stop nginx, to make changes
       service:
-          name: nginx
-          state: stopped
+        name: nginx
+        state: stopped
     - name: remove the default-web site-enabled link
       file:
         path: /etc/nginx/sites-enabled/default

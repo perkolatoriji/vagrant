@@ -6,5 +6,5 @@
       become: true
     - name: start nginx
       service:
-          name: nginx
-          state: started
+        name: nginx
+        state: started

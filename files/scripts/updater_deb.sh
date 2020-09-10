@@ -61,7 +61,7 @@ echo ">> add vagrant user to sudo & remove requiretty."
 echo "vagrant        ALL=(ALL)       NOPASSWD: ALL" >> /etc/sudoers
 sed -i "s/^.*requiretty/#Defaults requiretty/" /etc/sudoers
 
-# echo ">> vagrant SSH keygen."
-# echo vagrant | sudo -S su - vagrant -c "ssh-keygen -t rsa -f /home/vagrant/.ssh/id_rsa -q -P ''"
+echo ">> vagrant SSH keygen."
+echo vagrant | sudo -S su - vagrant -c "ssh-keygen -t rsa -f /home/vagrant/.ssh/id_rsa -q -P ''"
 
 echo ">>> Finished updater_deb.sh."

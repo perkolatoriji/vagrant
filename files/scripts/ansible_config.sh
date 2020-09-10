@@ -26,7 +26,7 @@
 # Versions       Date         Programmer, Modification
 # -----------    ----------   -------------------------------------------
 # Version=1.00   07/07/2020 - Carlos Ijalba, Original.
-  Version=1.25 # 10/08/2020 - Carlos Ijalba, Latest updates.
+  Version=1.27 # 10/09/2020 - Carlos Ijalba, Latest updates.
 #
 #########################################################################
 #set -x
@@ -39,6 +39,7 @@ HOSTS="/etc/hosts"
 AHOSTS="/etc/ansible/hosts"
 PBOOKS="/home/vagrant/playbooks"
 PSCRIPTS="/home/vagrant/scripts"
+SUDO="sudo -u vagrant"
 
 
 #Function ------------------------------------------ Local Functions ####
@@ -78,9 +79,11 @@ echo "192.168.11.12	web1.local	nginx"	  | sudo tee -a $HOSTS
 echo "192.168.11.13	web2.local	apache2"  | sudo tee -a $HOSTS
 echo "192.168.11.14	prom1.local	ansible"  | sudo tee -a $HOSTS 
 
-echo ">> populating /etc/ansible/hosts file"
+echo ">> creating /etc/ansible/hosts file"
 sudo mkdir -p /etc/ansible 
 sudo touch $AHOSTS
+
+echo ">> populating /etc/ansible/hosts file"
 echo "[prometheus]" | sudo tee -a $AHOSTS
 echo "prom1.local"  | sudo tee -a $AHOSTS
 echo "[grafana]"    | sudo tee -a $AHOSTS
@@ -104,26 +107,30 @@ $PSCRIPTS/ssh_trust.sh $USER $PASSWORD "web1.local"
 $PSCRIPTS/ssh_trust.sh $USER $PASSWORD "web2.local" 
 
 echo ">> doing some quick ansible CHECKS..."
-ansible -m ping all
+$SUDO ansible -m ping all
 if_error "ansible PING has failed somewhere." exit "ansible PING OK."
-ansible -m shell -a "cat /etc/issue" all
+$SUDO ansible -m shell -a "cat /etc/issue" all
 if_error "ansible config has failed somewhere." exit "ansible configured OK."
 
 echo ">> setup infrastructure using ansible playbooks..."
-ansible-playbook $PBOOKS/apt_upgrade.yaml
+$SUDO ansible-playbook $PBOOKS/apt_upgrade.yaml
 if_error "all servers update/upgrade failed." return "all servers repos have been updated & upgraded, Nice!."
 
-ansible-playbook $PBOOKS/prometheus_install.yaml
+$SUDO ansible-playbook $PBOOKS/prometheus_install.yaml
 if_error "prometheus install failed." return "prometheus installed."
 
-ansible-playbook $PBOOKS/grafana_install.yaml
+$SUDO ansible-playbook $PBOOKS/grafana_install.yaml
 if_error "grafana install failed." return "grafana installed."
 
-ansible-playbook $PBOOKS/nginx_install.yaml
+$SUDO ansible-playbook $PBOOKS/nginx_install.yaml
 if_error "nginx install failed (check ansible-playbook)." return "nginx installed."
+$SUDO ansible-playbook $PBOOKS/nginx_config.yaml
+if_error "nginx config failed (check ansible-playbook)." return "nginx configured."
 
-ansible-playbook $PBOOKS/apache2_install.yaml
+$SUDO ansible-playbook $PBOOKS/apache2_install.yaml
 if_error "apache2 install failed (check ansible-playbook)." return "apache2 installed."
+$SUDO ansible-playbook $PBOOKS/apache2_config.yaml
+if_error "apache2 config failed (check ansible-playbook)." return "apache2 configured."
 
 echo ">>> ansible_config Finished."                # final message 
 

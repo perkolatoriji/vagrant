@@ -16,7 +16,7 @@
 #
 # -Author:		Carlos Ijalba
 #
-# -Version:		1.35, 03/09/2020
+# -Version:		1.37, 10/09/2020
 #
 #################################################################
 
@@ -45,7 +45,7 @@ servers = [
   {
     :hostname => "graf1." + "#{DOMAIN}",
     :box => "#{VM}",
-#   :box_ver => "#{VM_VER}",
+    :box_ver => "#{VM_VER}",
     :ram => "#{RAM}",
     :updater         => "./files/scripts/updater_deb.sh",
     :ip => "#{NETWORK}" + "11",
@@ -89,6 +89,9 @@ servers = [
 
 Vagrant.configure(2) do |config|
 
+  # use vagrant-vbguest plugin to auto-update the boxes VBGuest additions:
+  config.vbguest.auto_update = true
+
   servers.each do |machine|
 
     config.vm.define machine[:hostname] do |node|
@@ -124,8 +127,9 @@ Vagrant.configure(2) do |config|
         end
         if File.exist?(machine[:ansible_config])
           node.vm.provision "shell", path: machine[:ansible_config], run: "once"
-          node.vm.provision "shell", inline: "ansible-playbook ./playbooks/nginx_config.yaml"
-          node.vm.provision "shell", inline: "ansible-playbook ./playbooks/apache2_config.yaml"
+#  we could launch ansible playbooks from here to provision software, but we have more control by invoking them from
+#  bash scripts:
+#         node.vm.provision "shell", inline: "sudo -u vagrant ansible-playbook ~vagrant/playbooks/nginx_config.yaml"
         end
       end # ansible
 
@@ -135,9 +139,8 @@ Vagrant.configure(2) do |config|
   # VM boot timeout increase to 8 minutes instead of the default 300, for lazy boxes:
   config.vm.boot_timeout = 480
 
-  # Shell provisioner to create SSH key and set the correct permissions:
-  config.vm.provision :shell,
-  :inline => "echo 'appending SSH public key to ~vagrant/.ssh/authorized_keys' && echo '#{rsa_pub}' >> /home/vagrant/.ssh/authorized_keys && chmod 700 /home/vagrant/.ssh && chmod 600 /home/vagrant/.ssh/authorized_keys"
+  # Shell provisioner to create SSH key and set the recommended permissions:
+  config.vm.provision "shell", inline: "echo 'appending SSH public key to ~vagrant/.ssh/authorized_keys' && echo '#{rsa_pub}' >> ~vagrant/.ssh/authorized_keys && chmod 700 ~vagrant/.ssh && chmod 600 ~vagrant/.ssh/authorized_keys"
   
   # don't let vagrant insert it's insecure SSH keypair:
   config.ssh.insert_key = false

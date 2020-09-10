@@ -119,15 +119,15 @@ echo ">> ansible install."
 update_func
 ansible_install_func
 
-#echo ">> vagrant user tweaks."
+echo ">> vagrant user tweaks."
 # first we add vagrant user to sudo:
-#echo "vagrant        ALL=(ALL)       NOPASSWD: ALL" >> /etc/sudoers
+echo "vagrant        ALL=(ALL)       NOPASSWD: ALL" >> /etc/sudoers
 # then we remove the requiretty def parameter from sudoers file if it exists:
-#sed -i "s/^.*requiretty/#Defaults requiretty/" /etc/sudoers
+sed -i "s/^.*requiretty/#Defaults requiretty/" /etc/sudoers
 
-#echo ">> vagrant SSH keygen."
+echo ">> vagrant SSH keygen."
 # now we generate an ssh key for the user vagrant:
-#echo vagrant | sudo -S su - vagrant -c "ssh-keygen -t rsa -f /home/vagrant/.ssh/id_rsa -q -P ''"
+echo vagrant | sudo -S su - vagrant -c "ssh-keygen -t rsa -f /home/vagrant/.ssh/id_rsa -q -P ''"
 
 echo ">> Checks --- --- --- ---"
 tools_check

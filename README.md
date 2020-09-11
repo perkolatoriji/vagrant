@@ -1,5 +1,5 @@
 # vagrant
-DevOps#1 project
+DevOps#1 project - Carlos Ijalba 2020.
 
 Vagrant setup with virtualbox to create 4 machines in a local PC:
 
@@ -25,3 +25,5 @@ This project will have the following premises:
   7.- all the infra must be registered and monitored via prometheus/grafana.
 
   8.- the infrastructure must be inmutable, and recorded in git.
+
+#

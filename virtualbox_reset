@@ -1,6 +1,6 @@
+# If you get problems with network adapters in virtualbox, they can just be deleted with the followig commands:
 
 vboxmanage hostonlyif remove "VirtualBox Host-Only Ethernet Adapter"
 vboxmanage hostonlyif remove "VirtualBox Host-Only Ethernet Adapter #2"
 
-
-ls -l "C:\Users\cijalba\VirtualBox VMs"
+# the vagrant project does recreate them anyway, so they can be safely removed (need admin privileges).

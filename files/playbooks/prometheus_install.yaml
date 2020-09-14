@@ -1,10 +1,10 @@
 ---
 - hosts: prometheus 
   tasks:
-    - name: ensure nginx is at the latest version
-      apt: name=nginx state=latest
+    - name: ensure prometheus is at the latest version
+      apt: name=prometheus state=latest
       become: true
-    - name: start nginx
+    - name: start prometheus
       service:
-        name: nginx
+        name: prometheus
         state: started

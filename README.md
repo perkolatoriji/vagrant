@@ -1,12 +1,19 @@
 # vagrant
 DevOps#1 project - Carlos Ijalba 2020.
 
+-Description:  Ansible/Web/Prometheus/Grafana LAB
+
 Vagrant setup with virtualbox to create 4 machines in a local PC:
 
        1.- web1, with nginx
        2.- web2, with apache2
        3.- prom1, with prometheus
        4.- graf1, with grafana
+
+-Intructions: This Vagrant infra MUST be executed from where the Vagrantfile and it's associated folders exist,
+              otherwise you will get various errors: (Net::SCP::Error), (Gem::Requirement::BadRequirementError)
+
+-Author:  Carlos Ijalba. Project Started in 2020.
 
 This project will have the following premises:
 

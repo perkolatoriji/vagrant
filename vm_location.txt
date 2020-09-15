@@ -1,0 +1,1 @@
+ls -l "C:\Users\cijalba\VirtualBox VMs"

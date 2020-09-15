@@ -1,9 +1,6 @@
 # Vagrant Config File -------------------------
 #
-# Carlos Ijalba 2020 - v1.03
-#
-# - Updated: 12/08/2020
-#
+# Carlos Ijalba 2020
 #----------------------------------------------
 
 #vagrant_box_check_update: false
@@ -61,4 +58,3 @@ vagrant_ip: 192.168.11.
 vagrant_directory: /vagrant
 vagrant_domain_name: local 
 vagrant_ip: 192.168.11.
-

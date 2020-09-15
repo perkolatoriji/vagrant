@@ -6,19 +6,7 @@
 ###  --Vagrantfile--
 #
 # -Project:		DevOps#1
-# -Description:		Ansible/Web/Prometheus/Grafana LAB
-#
-# -Infrastructure:	Deploys 1 VM for Prometheus, 1x for Grafana, 2x for Web Servers (nginx & apache2)
-#			prom1 is used as the ansible control node
-#
-# -Intructions: This Vagrant infra MUST be executed from where the Vagrantfile and it's associated folders exist,
-#               otherwise you will get various errors: (Net::SCP::Error), (Gem::Requirement::BadRequirementError)
-#
-# -Author:		Carlos Ijalba
-#
-# -Version:		1.37, 10/09/2020
-#
-#################################################################
+################################################
 
 # Vars:
 

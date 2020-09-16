@@ -1,10 +1,45 @@
 ---
 - hosts: grafana 
   tasks:
-    - name: ensure nginx is at the latest version
-      apt: name=nginx state=latest
+    - name: Check/Install prerequisites (apt-transport-https)
+      apt: 
+        name: apt-transport-https 
+        state: present
+        update_cache: yes
       become: true
-    - name: start nginx
+      
+    - name: Check/Install prerequisites (software-properties-common)
+      apt: 
+        name: software-properties-common 
+        state: present
+      become: true
+
+    - name: Check/Install prerequisites (curl)
+      apt: 
+        name: curl 
+        state: present
+        update_cache: yes
+      become: true
+
+    - name: add grafana gpg key
+      shell: curl https://packages.grafana.com/gpg.key | sudo apt-key add -
+        
+    - name: add grafana repo 
+      apt_repository:
+        repo: deb https://packages.grafana.com/oss/deb stable main
+        state: present
+        filename: grafana
+
+    - name: Install grafana
+      apt: 
+        name: grafana
+        state: present
+        update_cache: yes
+
+    - name: Enable/Start grafana service
       service:
-          name: nginx
-          state: started
+        name: grafana-server
+        enabled: yes
+        state: started
+
+# https://grafana.com/docs/grafana/latest/installation/debian/

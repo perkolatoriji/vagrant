@@ -33,7 +33,7 @@ servers = [
   {
     :hostname => "graf1." + "#{DOMAIN}",
     :box => "#{VM}",
-    :box_ver => "#{VM_VER}",
+#   :box_ver => "#{VM_VER}",
     :ram => "#{RAM}",
     :updater         => "./files/scripts/updater_deb.sh",
     :ip => "#{NETWORK}" + "11",
@@ -131,7 +131,7 @@ Vagrant.configure(2) do |config|
   config.vm.provision "shell", inline: "echo 'appending SSH public key to ~vagrant/.ssh/authorized_keys' && echo '#{rsa_pub}' >> ~vagrant/.ssh/authorized_keys && chmod 700 ~vagrant/.ssh && chmod 600 ~vagrant/.ssh/authorized_keys"
   
   # don't let vagrant insert it's insecure SSH keypair:
-  config.ssh.insert_key = false
+  #config.ssh.insert_key = false
 
 end	# configure
 

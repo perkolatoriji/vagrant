@@ -1,0 +1,38 @@
+---
+- hosts: grafana 
+  become: true
+  tasks:
+
+    - name: Check/Install prerequisites, software-properties-common
+      apt: 
+        name: software-properties-common
+        state: present
+
+    - name: Check/Install prerequisites, adduser 
+      apt: 
+        name: adduser
+        state: present
+
+    - name: Check/Install prerequisites, libfontconfig1 
+      apt: 
+        name: libfontconfig1 
+        state: present
+
+    - name: apt-get install -y adduser libfontconfig1
+      shell: apt-get install -y adduser libfontconfig1 
+        warn=false
+
+    - name: Download grafana 
+      get_url:  
+        url: https://dl.grafana.com/oss/release/grafana_7.1.5_amd64.deb 
+        dest: /home/vagrant
+        
+    - name: Install grafana
+      shell: dpkg -i /home/vagrant/grafana_7.1.5_amd64.deb
+
+    - name: Enable/Start grafana service
+      service:
+        name: grafana-server
+        enabled: yes
+        state: started
+

@@ -2,7 +2,13 @@
 - hosts: all
   become: true
   tasks:
+
   - name: Update apt-cache
-    apt: update_cache=yes
+    apt: 
+      force_apt_get: yes
+      update_cache: yes
+
   - name: Upgrade apt
-    apt: upgrade=safe
+    apt: 
+      force_apt_get: yes
+      upgrade: dist

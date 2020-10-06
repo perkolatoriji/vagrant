@@ -2,7 +2,7 @@
 - hosts: grafana 
   become: true
   tasks:
-    - name: Check/Install prerequisites, apt-transport-https
+    - name: Check/Install prerequisites
       apt: 
         name: apt-transport-https 
         state: present

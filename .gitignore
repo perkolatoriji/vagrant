@@ -5,6 +5,7 @@
 *.bak
 *.back
 *.log
+*.png
 
 # Specific Folders
 /.vagrant/*

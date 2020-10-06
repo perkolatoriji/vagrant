@@ -18,7 +18,7 @@
 
 # Var
 
-set Version "1.02" 
+set Version "1.03" 
 set user     [lindex $argv 0]
 set pass     [lindex $argv 1]
 set hostname [lindex $argv 2]
@@ -32,7 +32,7 @@ puts ">>> ssh_trust v$Version. for ==> $user@$hostname."
 
 # invoke ssh-copy-id command to create SSH trust rel, and use expect to answer the
 # authentication messages:
-spawn sudo -u vagrant /usr/bin/ssh-copy-id -i /home/vagrant/.ssh/id_rsa.pub $user@$hostname
+spawn sudo -u $user /usr/bin/ssh-copy-id -i /home/vagrant/.ssh/id_rsa.pub $user@$hostname
 expect {
    "*yes/no*" { send "yes\r" ; exp_continue }
    "*assword:" { send "$pass\r" ; exp_continue }
@@ -40,7 +40,7 @@ expect {
 }
 
 # now try to login to the machine for the first time
-spawn sudo -u vagrant ssh $user@$hostname
+spawn sudo -u $user ssh $user@$hostname
 expect {
    "*yes/no*" { send "yes\r" ; exp_continue }
    "*assword:" { send "$pass\r" ; exp_continue }

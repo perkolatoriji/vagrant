@@ -3,7 +3,7 @@
 # Carlos Ijalba 2020
 #----------------------------------------------
 
-#vagrant_box_check_update: false
+vagrant_box_check_update: false
 
 #----- OS List: -------------------------------
 
@@ -54,7 +54,8 @@ vagrant_box_version: "202008.16.0"
 vagrant_hostname: vagrant
 vagrant_memory: 512 
 vagrant_cpu: 1
-vagrant_ip: 192.168.11.
 vagrant_directory: /vagrant
 vagrant_domain_name: local 
 vagrant_ip: 192.168.11.
+
+

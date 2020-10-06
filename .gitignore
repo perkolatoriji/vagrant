@@ -10,6 +10,9 @@
 /.vagrant/*
 /virtualbox/*
 
+# Specific Files
+*.sec
+
 # System Files
 .DS_Store
 thumbs.db

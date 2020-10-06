@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VER=1.01
+VER=1.02
 
 echo -e "\nO-> Proj. #01 Ver $VER, Loading vagrant SSH vars...\n"
 
@@ -12,5 +12,7 @@ alias web2="ssh vagrant@localhost -p 2213"
 
 alias prom1="ssh vagrant@localhost -p 2214"
 
-alias | grep -e prom -e graf -e web
+alias | grep -e graf -e web -e prom
+
+echo -e "\no-> prometheus port: 9090\no-> grafana port:    3000"
 

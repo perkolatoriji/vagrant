@@ -3,7 +3,7 @@ DevOps#1 project - Carlos Ijalba 2020.
 
 -Description:  Ansible/Web/Prometheus/Grafana LAB
 
-Vagrant setup with virtualbox to create 4 machines in a local PC:
+IaC & DaC Vagrant setup with virtualbox to create 4 machines in a local PC:
 
        1.- web1, with nginx
        2.- web2, with apache2
@@ -44,6 +44,8 @@ This project will have the following premises:
 
   7.- all the infra must be registered and monitored via prometheus/grafana.
 
-  8.- the infrastructure must be inmutable, and recorded in git.
+  8.- the infrastructure must be inmutable, and recorded in git, IaC - Infrastructure as Code.
+  
+  9.- the infrastructure will be documented using diagrams, DaC - Documentation as Code.
 
 #

@@ -74,10 +74,10 @@ fi
 echo ">>> ansible_config  v$Version - $Copyright - Configuring ansible infra in `hostname`. `date`"
 
 echo ">> populating /etc/hosts with our environment"
-echo "192.168.11.11	graf1.local     grafana"  | sudo tee -a $HOSTS 
-echo "192.168.11.12	web1.local	nginx"	  | sudo tee -a $HOSTS 
-echo "192.168.11.13	web2.local	apache2"  | sudo tee -a $HOSTS
-echo "192.168.11.14	prom1.local	ansible"  | sudo tee -a $HOSTS 
+echo "192.168.11.11	graf1.local   grafana"  | sudo tee -a $HOSTS 
+echo "192.168.11.12	web1.local    nginx"	  | sudo tee -a $HOSTS 
+echo "192.168.11.13	web2.local    apache2"  | sudo tee -a $HOSTS
+echo "192.168.11.14	prom1.local   ansible"  | sudo tee -a $HOSTS 
 
 echo ">> creating /etc/ansible/hosts file"
 sudo mkdir -p /etc/ansible 

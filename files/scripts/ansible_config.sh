@@ -26,7 +26,7 @@
 # Versions       Date         Programmer, Modification
 # -----------    ----------   -------------------------------------------
 # Version=1.00   07/07/2020 - Carlos Ijalba, Original.
-  Version=1.29 # 22/09/2020 - Carlos Ijalba, Latest updates.
+  Version=1.30 # 27/10/2020 - Carlos Ijalba, Latest updates.
 #
 #########################################################################
 #set -x
@@ -35,10 +35,11 @@
 
 HOSTS="/etc/hosts"
 AHOSTS="/etc/ansible/hosts"
-PBOOKS="/home/vagrant/playbooks"
-PSCRIPTS="/home/vagrant/scripts"
-USER=$( grep user $PSCRIPTS/ansible_config.sec | cut -f2 )
-PASSWORD=$( grep pass $PSCRIPTS/ansible_config.sec | cut -f2 )
+PBOOKS="~/playbooks"
+PSCRIPTS="~/scripts"
+PSECRETS="~/secrets"
+USER=$( cat $PSECRETS/ansible_user.sec )
+PASSWORD=$( cat $PSECRETS/ansible_pass.sec )
 SUDO="sudo -u $USER"
 
 

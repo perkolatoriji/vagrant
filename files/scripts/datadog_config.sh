@@ -2,7 +2,7 @@
 #
 set -x
 
-PSCRIPTS="/home/vagrant/scripts"
+PSCRIPTS="~/scripts"
 
 #Main
 

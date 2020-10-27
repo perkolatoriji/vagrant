@@ -1,0 +1,17 @@
+- hosts: all
+  roles:
+    - { role: datadog.datadog, become: yes }
+  vars:
+    datadog_api_key: ~/secrets/datadog_install.sec
+    datadog_site: "datadoghq.com"
+    datadog_checks:
+      process:
+        init_config:
+        instances:
+          - name: ssh
+            search_string: ['ssh', 'sshd']
+          - name: syslog
+            search_string: ['rsyslog', 'rsyslogd']
+            cpu_check_interval: 0.2
+            exact_match: true
+            ignore_denied_access: true

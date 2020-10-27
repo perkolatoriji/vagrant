@@ -35,9 +35,9 @@
 
 HOSTS="/etc/hosts"
 AHOSTS="/etc/ansible/hosts"
-PBOOKS="~/playbooks"
-PSCRIPTS="~/scripts"
-PSECRETS="~/secrets"
+PBOOKS="/home/vagrant/playbooks"
+PSCRIPTS="/home/vagrant/scripts"
+PSECRETS="/home/vagrant/secrets"
 USER=$( cat $PSECRETS/ansible_user.sec )
 PASSWORD=$( cat $PSECRETS/ansible_pass.sec )
 SUDO="sudo -u $USER"

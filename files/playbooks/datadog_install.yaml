@@ -2,7 +2,7 @@
   roles:
     - { role: datadog.datadog, become: yes }
   vars:
-    datadog_api_key: ~/secrets/datadog_install.sec
+    datadog_api_key: ~/secrets/datadog_api.sec
     datadog_site: "datadoghq.com"
     datadog_checks:
       process:

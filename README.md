@@ -21,7 +21,7 @@ IaC & DaC Vagrant setup with virtualbox to create 4 machines in a local PC:
   This files are:
 
   	files/secrets/ansible_user.sec		# contains ansible user, used by config_ansible.sh
-	files/secrets/ansible_pass.sec		# contains ansible user's passwword, used by config_ansible.sh
+	files/secrets/ansible_pass.sec		# contains ansible user's password, used by config_ansible.sh
 	files/secrets/datadog_api.sec		# contains datadot API KEY, used by config_datadog.sh
 
 -Author:  Carlos Ijalba. Project Started in 2020.
@@ -45,11 +45,13 @@ This project will have the following premises:
 
   8.- the infrastructure must be inmutable, and recorded in git, IaC - Infrastructure as Code.
   
-  9.- the infrastructure will be documented using diagrams, DaC - Documentation as Code.
+  9.- the infrastructure will be documented using diagrams, DaC - Documentation as Code. The infra's diagram auto-generated, will be included in the web site.
   
   10.- The repo is security scanned by GitGuard, to intercept leaked secrets: users, passwords and keys.
   
   11.- the infra contains prometheus & grafana for auto-monitoring, however we will compare it against SaaS offerings, like Datadog, by using it's 14-day free trial period.
-       To accomplish this setup, we will use ansible playbooks that can be run after vagrant deployment from the ansible master node.
+       To accomplish this setup, we will use ansible playbooks that can be run after vagrant deployment from the ansible master node (prom1).
+       
+  12.- there are some bash administration scripts, defined in files/scripts. It's usage will be described in the projetc's README file.
 
 #

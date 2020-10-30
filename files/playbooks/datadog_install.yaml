@@ -1,8 +1,9 @@
 - hosts: all
   roles:
     - { role: datadog.datadog, become: yes }
+  vars_files:
+    - /home/vagrant/secrets/datadog_api.sec
   vars:
-    datadog_api_key: ~/secrets/datadog_api.sec
     datadog_site: "datadoghq.com"
     datadog_checks:
       process:

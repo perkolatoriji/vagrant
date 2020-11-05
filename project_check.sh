@@ -17,3 +17,4 @@ curl 192.168.11.14:9090
 echo "o-- you can access prometheus via: http://192.168.11.14:9090/graph"
 echo o
 echo "O-> project check finished."
+

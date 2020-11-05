@@ -14,13 +14,24 @@ require "yaml"
 
 rsa_pub = File.read(File.join(Dir.home, ".ssh", "id_rsa.pub"))
 cfg_file = "./config/config.yaml"
+ans_user = "./files/secrets/ansible_user.sec"
+ans_pass = "./files/secrets/ansible_pass.sec"
+
 #cur_dir = File.dirname(File.expand_path(__FILE__))
 #cfg_file = "#{cur_dir}/config/config.yaml"
 
 if !File.exist?("#{cfg_file}")
-  raise "---ERROR: Config file missing!, make sure the config file exists & try again (usually config/config.yaml)."
+  raise "---ERROR: Config file missing!, make sure the config file exists & try again ==> #{cfg_file}."
+  exit
+else
+  vconfig = YAML::load_file("#{cfg_file}")
 end
-vconfig = YAML::load_file("#{cfg_file}")
+if !File.exist?("#{ans_user}")
+  raise "---ERROR: Secrets file missing!, make sure the config file exists & try again ==> #{ans_user}."
+end
+if !File.exist?("#{ans_pass}")
+  raise "---ERROR: Secrets file missing!, make sure the config file exists & try again ==> #{ans_pass}."
+end
 
 NETWORK = vconfig["vagrant_ip"]
 DOMAIN  = vconfig["vagrant_domain_name"]

@@ -53,8 +53,8 @@ This project will have the following premises:
   
   11.- the infra contains prometheus & grafana for auto-monitoring, however we will compare it against SaaS offerings, like Datadog, by using it's 14-day free trial period.
        To accomplish this setup, we will use ansible playbooks that can be run after vagrant deployment from the ansible master node (prom1). To deploy this additional setups 
-       to the standard prometheus/grafana, sepparate readme's will specify the instructions for each SaaS product, and how to set it up.
+       to the standard prometheus/grafana, separate readme's will specify the instructions for each SaaS product, and how to set it up.
        
-  12.- there are some bash administration scripts, defined in files/scripts. It's usage will be described in sepparate README files.
+  12.- there are some bash administration scripts, defined in files/scripts. It's usage will be described in separate README files.
 
 #

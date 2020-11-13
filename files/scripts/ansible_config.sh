@@ -26,7 +26,7 @@
 # Versions       Date         Programmer, Modification
 # -----------    ----------   -------------------------------------------
 # Version=1.00   07/07/2020 - Carlos Ijalba, Original.
-  Version=1.30 # 27/10/2020 - Carlos Ijalba, Latest updates.
+  Version=1.31 # 12/11/2020 - Carlos Ijalba, Latest updates.
 #
 #########################################################################
 #set -x
@@ -117,8 +117,14 @@ echo ">> setup infrastructure using ansible playbooks..."
 $SUDO ansible-playbook $PBOOKS/apt_upgrade.yaml
 if_error "all servers update/upgrade failed." return "all servers repos have been updated & upgraded, Nice!."
 
+$SUDO $PSCRIPTS/blackbox_install.sh 
+if_error "ansible blackbox-exporter role install failed." return "ansible blackbox-exporter role installed."
+
 $SUDO ansible-playbook $PBOOKS/prometheus_install.yaml
 if_error "prometheus install failed." return "prometheus installed."
+
+$SUDO ansible-playbook $PBOOKS/blackbox-exporter_install.yaml
+if_error "blackbox-exporter install failed." return "blackbox-exporter installed."
 
 $SUDO ansible-playbook $PBOOKS/grafana_install.yaml
 if_error "grafana install failed." return "grafana installed."

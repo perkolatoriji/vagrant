@@ -1,0 +1,6 @@
+- hosts: prometheus
+  become: true
+  roles:
+    - cloudalchemy.blackbox-exporter
+
+# https://galaxy.ansible.com/cloudalchemy/blackbox-exporter

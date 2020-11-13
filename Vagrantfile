@@ -76,11 +76,11 @@ servers = [
     :ram => "#{RAM}",
     :ip => "#{NETWORK}" + "14",
     :ssh_port => "#{SSH}" + "14",
-    :updater         => "./files/scripts/updater_deb.sh",
-    :ansible_install => "./files/scripts/ansible_deb.sh",
-    :ansible_config  => "./files/scripts/ansible_config.sh",
-    :source          => "./files",
-    :destination     => "/home/vagrant"
+    :updater          => "./files/scripts/updater_deb.sh",
+    :ansible_install  => "./files/scripts/ansible_deb.sh",
+    :ansible_config   => "./files/scripts/ansible_config.sh",
+    :source           => "./files",
+    :destination      => "/home/vagrant"
   }]
 
 
@@ -131,7 +131,7 @@ Vagrant.configure(2) do |config|
 #         node.vm.provision "shell", inline: "sudo -u vagrant ansible-playbook ~vagrant/playbooks/nginx_config.yaml"
         end
       end # ansible
-
+      
     end   # define
   end     # each
 

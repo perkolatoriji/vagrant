@@ -16,3 +16,5 @@
             cpu_check_interval: 0.2
             exact_match: true
             ignore_denied_access: true
+
+# https://app.datadoghq.com/account/settings#ansible

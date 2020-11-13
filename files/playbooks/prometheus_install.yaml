@@ -4,6 +4,7 @@
     - name: ensure prometheus is at the latest version
       apt: name=prometheus state=latest
       become: true
+
     - name: start prometheus
       service:
         name: prometheus

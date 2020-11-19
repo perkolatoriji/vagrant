@@ -2,29 +2,19 @@
 - hosts: prometheus
   become: true
   tasks:
-#   - name: stop prometheus, to make changes
-      service:
-        name: prometheus
-        state: stopped
-#   - name: remove the default-web site-enabled link
-      file:
-        path: /etc/nginx/sites-enabled/default
-        state: absent     
-#   - name: copy the nginx config file for static-site to sites-available
+
+    - name: copy prometheus config file
       copy:
-        src: /home/vagrant/config/static_site.cfg
-        dest: /etc/nginx/sites-available/static_site.cfg
-#   - name: create symlink in sites-enabled
-      file:
-        src: /etc/nginx/sites-available/static_site.cfg
-        dest: /etc/nginx/sites-enabled/static_site.cfg
-        state: link
-#   - name: copy the content of the new web site to /var/www/
+        src: /home/vagrant/config/prometheus.yml
+        dest: /etc/prometheus/prometheus.yml
+        force: yes
+
+    - name: copy directory to hold alarm rules (prometheus/alerts)
       copy:
-        src: /home/vagrant/config/static-site/
-        dest: /var/www/static-site
+        src: /home/vagrant/config/alerts/
+        dest: /etc/prometheus/alerts
+
     - name: restart prometheus & enjoy
       service:
         name: prometheus
-        state: restarted
-        
+        state: restarted       

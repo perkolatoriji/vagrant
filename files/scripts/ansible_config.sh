@@ -26,7 +26,7 @@
 # Versions       Date         Programmer, Modification
 # -----------    ----------   -------------------------------------------
 # Version=1.00   07/07/2020 - Carlos Ijalba, Original.
-  Version=1.31 # 12/11/2020 - Carlos Ijalba, Latest updates.
+  Version=1.32 # 19/11/2020 - Carlos Ijalba, Latest updates.
 #
 #########################################################################
 #set -x
@@ -110,13 +110,17 @@ $PSCRIPTS/ssh_trust.sh $USER $PASSWORD "web2.local"
 echo ">> doing some quick ansible CHECKS..."
 $SUDO ansible -m ping all
 if_error "ansible PING has failed somewhere." exit "ansible PING OK."
+
 $SUDO ansible -m shell -a "cat /etc/issue" all
 if_error "ansible config has failed somewhere." exit "ansible configured OK."
+
 
 echo ">> setup infrastructure using ansible playbooks..."
 $SUDO ansible-playbook $PBOOKS/apt_upgrade.yaml
 if_error "all servers update/upgrade failed." return "all servers repos have been updated & upgraded, Nice!."
 
+
+# Start Prometheus & Grafana install
 $SUDO $PSCRIPTS/blackbox_install.sh 
 if_error "ansible blackbox-exporter role install failed." return "ansible blackbox-exporter role installed."
 
@@ -129,15 +133,22 @@ if_error "blackbox-exporter install failed." return "blackbox-exporter installed
 $SUDO ansible-playbook $PBOOKS/grafana_install.yaml
 if_error "grafana install failed." return "grafana installed."
 
+
+# Start Nginx install
 $SUDO ansible-playbook $PBOOKS/nginx_install.yaml
 if_error "nginx install failed (check ansible-playbook)." return "nginx installed."
+
 $SUDO ansible-playbook $PBOOKS/nginx_config.yaml
 if_error "nginx config failed (check ansible-playbook)." return "nginx configured."
 
+
+# Start Apache2 install
 $SUDO ansible-playbook $PBOOKS/apache2_install.yaml
 if_error "apache2 install failed (check ansible-playbook)." return "apache2 installed."
+
 $SUDO ansible-playbook $PBOOKS/apache2_config.yaml
 if_error "apache2 config failed (check ansible-playbook)." return "apache2 configured."
+
 
 echo ">>> ansible_config Finished."                # final message 
 

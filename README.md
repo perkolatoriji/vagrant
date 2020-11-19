@@ -10,7 +10,7 @@ IaC & DaC Vagrant setup with virtualbox to create 4 machines in a local PC:
        3.- prom1, with prometheus
        4.- graf1, with grafana
 
--Intructions: 
+-Instructions: 
 
   This Vagrant infra MUST be executed from where the Vagrantfile and it's associated folders exist,
   otherwise you will get various errors: (Net::SCP::Error), (Gem::Requirement::BadRequirementError). Update: added a Vagrant config files check, that will throw 

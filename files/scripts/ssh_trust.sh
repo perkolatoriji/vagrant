@@ -11,8 +11,7 @@
 # Version  Date         Programmer, Modification
 # -------  ----------   -------------------------------------------
 # 1.00   - 07/07/2020 - xxx, Original.
-# 1.01   - 10/07/2020 - Carlos Ijalba, Latest updates.
-# 1.02   - 07/09/2020 - Carlos Ijalba, updated due to changes in the SSH stack. 
+# 1.03   - 19/11/2020 - Carlos Ijalba, Latest updates.
 #
 #########################
 
@@ -36,15 +35,6 @@ spawn sudo -u $user /usr/bin/ssh-copy-id -i /home/vagrant/.ssh/id_rsa.pub $user@
 expect {
    "*yes/no*" { send "yes\r" ; exp_continue }
    "*assword:" { send "$pass\r" ; exp_continue }
-   timeout { exit }
-}
-
-# now try to login to the machine for the first time
-spawn sudo -u $user ssh $user@$hostname
-expect {
-   "*yes/no*" { send "yes\r" ; exp_continue }
-   "*assword:" { send "$pass\r" ; exp_continue }
-   "*vagrant*" { send "logout\r" ; exp_continue }
    timeout { exit }
 }
 

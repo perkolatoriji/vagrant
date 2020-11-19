@@ -35,6 +35,7 @@
 
 HOSTS="/etc/hosts"
 AHOSTS="/etc/ansible/hosts"
+ACFG="/etc/ansible/ansible.cfg"
 PBOOKS="/home/vagrant/playbooks"
 PSCRIPTS="/home/vagrant/scripts"
 PSECRETS="/home/vagrant/secrets"
@@ -76,7 +77,7 @@ echo ">>> ansible_config  v$Version - $Copyright - Configuring ansible infra in 
 
 echo ">> populating /etc/hosts with our environment"
 echo "192.168.11.11	graf1.local   grafana"  | sudo tee -a $HOSTS 
-echo "192.168.11.12	web1.local    nginx"	  | sudo tee -a $HOSTS 
+echo "192.168.11.12	web1.local    nginx"    | sudo tee -a $HOSTS 
 echo "192.168.11.13	web2.local    apache2"  | sudo tee -a $HOSTS
 echo "192.168.11.14	prom1.local   ansible"  | sudo tee -a $HOSTS 
 
@@ -93,6 +94,10 @@ echo "[nginx]"      | sudo tee -a $AHOSTS
 echo "web1.local"   | sudo tee -a $AHOSTS
 echo "[apache2]"    | sudo tee -a $AHOSTS
 echo "web2.local"   | sudo tee -a $AHOSTS
+
+echo ">> adding no host-key checking to ansible config"
+sed -i '/\[defaults\]/a host_key_checking = False' $ACFG
+if_error "problem addind host_key_checking = False to $ACFG" return "ansible host_key_checking set to False."
 
 cd $PSCRIPTS
 dos2unix *.sh

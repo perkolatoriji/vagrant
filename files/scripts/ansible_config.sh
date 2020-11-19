@@ -23,6 +23,9 @@
 #
 #    Shell Script to configure an ansible infrastructure.
 #
+#    First we configure the ansible control node, and then we issue all the 
+#    necessary playbooks to deploy our infra.
+#
 # Versions       Date         Programmer, Modification
 # -----------    ----------   -------------------------------------------
 # Version=1.00   07/07/2020 - Carlos Ijalba, Original.
@@ -126,6 +129,7 @@ if_error "all servers update/upgrade failed." return "all servers repos have bee
 
 
 # Start Prometheus & Grafana install
+echo ">> setup prometheus..."
 $SUDO $PSCRIPTS/blackbox_install.sh 
 if_error "ansible blackbox-exporter role install failed." return "ansible blackbox-exporter role installed."
 
@@ -135,11 +139,16 @@ if_error "prometheus install failed." return "prometheus installed."
 $SUDO ansible-playbook $PBOOKS/blackbox-exporter_install.yaml
 if_error "blackbox-exporter install failed." return "blackbox-exporter installed."
 
+$SUDO ansible-playbook $PBOOKS/prometheus_config.yaml
+if_error "prometheus config failed." return "prometheus configured."
+
+echo ">> setup grafana..."
 $SUDO ansible-playbook $PBOOKS/grafana_install.yaml
 if_error "grafana install failed." return "grafana installed."
 
 
 # Start Nginx install
+echo ">> setup nginx..."
 $SUDO ansible-playbook $PBOOKS/nginx_install.yaml
 if_error "nginx install failed (check ansible-playbook)." return "nginx installed."
 
@@ -148,6 +157,7 @@ if_error "nginx config failed (check ansible-playbook)." return "nginx configure
 
 
 # Start Apache2 install
+echo ">> setup apache2..."
 $SUDO ansible-playbook $PBOOKS/apache2_install.yaml
 if_error "apache2 install failed (check ansible-playbook)." return "apache2 installed."
 

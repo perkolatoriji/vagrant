@@ -9,7 +9,10 @@ scrape_configs:
     scrape_interval: 5s
     static_configs:
       - targets: ['localhost:9090']
-      
+      - targets: ['192.168.11.11:9100']
+      - targets: ['192.168.11.12:9100']
+      - targets: ['192.168.11.13:9100']
+
   - job_name: 'node_exporter'
     scrape_interval: 5s
     static_configs:
@@ -32,3 +35,4 @@ scrape_configs:
         target_label: instance
       - target_label: __address__
         replacement: localhost:9115
+

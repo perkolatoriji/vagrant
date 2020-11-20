@@ -1,0 +1,12 @@
+groups:
+- name: Blackbox
+  rules:
+  - alert: EndpointDown
+    expr: probe_success == 0
+    for: 1m
+    labels:
+      alert_service: blackbox
+      severity: critical
+    annotations:
+      summary: "{{ $labels.instance }}  != 200"
+      description: "The endpoint {{ $labels.instance }} HTTP response status code is not OK"

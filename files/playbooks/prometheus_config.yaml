@@ -7,12 +7,16 @@
       copy:
         src: /home/vagrant/config/prometheus.yml
         dest: /etc/prometheus/prometheus.yml
+        owner: prometheus
+        group: prometheus
         force: yes
 
     - name: copy directory to hold alarm rules (prometheus/alerts)
       copy:
         src: /home/vagrant/config/alerts/
         dest: /etc/prometheus/alerts
+        owner: prometheus
+        group: prometheus
 
     - name: restart prometheus & enjoy
       service:

@@ -1,0 +1,11 @@
+---
+- hosts: all
+  become: true
+  tasks:
+    - name: ensure prometheus-node-exporter is at the latest version
+      apt: name=prometheus-node-exporter state=latest
+      become: true
+    - name: start prometheus-node-exporter
+      service:
+        name: prometheus-node-exporter
+        state: started

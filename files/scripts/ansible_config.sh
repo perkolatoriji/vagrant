@@ -29,7 +29,7 @@
 # Versions       Date         Programmer, Modification
 # -----------    ----------   -------------------------------------------
 # Version=1.00   07/07/2020 - Carlos Ijalba, Original.
-  Version=1.32 # 19/11/2020 - Carlos Ijalba, Latest updates.
+  Version=1.33 # 20/11/2020 - Carlos Ijalba, Latest updates.
 #
 #########################################################################
 #set -x
@@ -145,6 +145,10 @@ if_error "prometheus config failed." return "prometheus configured."
 echo ">> setup grafana..."
 $SUDO ansible-playbook $PBOOKS/grafana_install.yaml
 if_error "grafana install failed." return "grafana installed."
+
+echo ">> install prometheus agent in all hosts..."
+$SUDO ansible-playbook $PBOOKS/node-exporter_install.yaml
+if_error "node-exporter install failed." return "node-exporter installed."
 
 
 # Start Nginx install

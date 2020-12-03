@@ -1,0 +1,12 @@
+---
+- hosts: prometheus
+  tasks:
+
+    - name:   ensure alertmanager is at the latest version
+      apt:    name=prometheus-alertmanager state=latest
+      become: true
+
+    - name:    start alertmanager
+      service:
+        name:  prometheus-alertmanager
+        state: started

@@ -29,7 +29,7 @@
 # Versions       Date         Programmer, Modification
 # -----------    ----------   -------------------------------------------
 # Version=1.00   07/07/2020 - Carlos Ijalba, Original.
-  Version=1.33 # 20/11/2020 - Carlos Ijalba, Latest updates.
+  Version=1.34 # 03/12/2020 - Carlos Ijalba, Latest updates.
 #
 #########################################################################
 #set -x
@@ -138,6 +138,9 @@ if_error "prometheus install failed." return "prometheus installed."
 
 $SUDO ansible-playbook $PBOOKS/blackbox-exporter_install.yaml
 if_error "blackbox-exporter install failed." return "blackbox-exporter installed."
+
+$SUDO ansible-playbook $PBOOKS/alert-manager_install.yaml
+if_error "alert-manager install failed." return "alert-manager installed."
 
 $SUDO ansible-playbook $PBOOKS/prometheus_config.yaml
 if_error "prometheus config failed." return "prometheus configured."

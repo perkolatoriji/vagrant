@@ -1,9 +1,10 @@
 ---
-- hosts: apache2
+- hosts:  apache2
   become: true
   tasks:
+
     - name: install apache2
-      apt: name=apache2 update_cache=yes state=latest
+      apt:  name=apache2 update_cache=yes state=latest
 
     - name: enabled mod_rewrite
       apache2_module: name=rewrite state=present
@@ -27,3 +28,4 @@
         state=restarted
     
 # https://www.scaleway.com/en/docs/how-to-install-apache-on-ansible/
+

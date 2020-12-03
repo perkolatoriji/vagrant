@@ -1,14 +1,14 @@
 ---
-- hosts: all
+- hosts:  all
   become: true
   tasks:
 
   - name: Update apt-cache
     apt: 
       force_apt_get: yes
-      update_cache: yes
+      update_cache:  yes
 
   - name: Upgrade apt
     apt: 
       force_apt_get: yes
-      upgrade: dist
+      upgrade:       dist

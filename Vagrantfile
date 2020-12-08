@@ -89,7 +89,9 @@ servers = [
 Vagrant.configure(2) do |config|
 
   # use vagrant-vbguest plugin to auto-update the boxes VBGuest additions:
-# config.vbguest.auto_update = true
+  if Vagrant.has_plugin?("vagrant-vbguest")
+    config.vbguest.auto_update = false  
+  end
 
   servers.each do |machine|
 

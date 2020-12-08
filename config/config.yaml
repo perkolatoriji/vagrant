@@ -3,7 +3,7 @@
 # Carlos Ijalba 2020
 #----------------------------------------------
 
-vagrant_box_check_update: false
+vagrant_box_check_update: true
 
 #----- OS List: -------------------------------
 

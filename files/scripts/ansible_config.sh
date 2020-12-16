@@ -29,7 +29,7 @@
 # Versions       Date         Programmer, Modification
 # -----------    ----------   -------------------------------------------
 # Version=1.00   07/07/2020 - Carlos Ijalba, Original.
-  Version=1.34 # 03/12/2020 - Carlos Ijalba, Latest updates.
+  Version=1.35 # 13/12/2020 - Carlos Ijalba, Latest updates.
 #
 #########################################################################
 #set -x
@@ -130,17 +130,20 @@ if_error "all servers update/upgrade failed." return "all servers repos have bee
 
 # Start Prometheus & Grafana install
 echo ">> setup prometheus..."
-$SUDO $PSCRIPTS/blackbox_install.sh 
+$SUDO $PSCRIPTS/prom_blackbox_install.sh 
 if_error "ansible blackbox-exporter role install failed." return "ansible blackbox-exporter role installed."
 
 $SUDO ansible-playbook $PBOOKS/prometheus_install.yaml
 if_error "prometheus install failed." return "prometheus installed."
 
-$SUDO ansible-playbook $PBOOKS/blackbox-exporter_install.yaml
-if_error "blackbox-exporter install failed." return "blackbox-exporter installed."
+$SUDO ansible-playbook $PBOOKS/prom_blackbox-exporter_install.yaml
+if_error "prometheus blackbox-exporter install failed." return "prometheus blackbox-exporter installed."
 
-$SUDO ansible-playbook $PBOOKS/alert-manager_install.yaml
-if_error "alert-manager install failed." return "alert-manager installed."
+$SUDO ansible-playbook $PBOOKS/prom_alert-manager_install.yaml
+if_error "prometheus alert-manager install failed." return "prometheus alert-manager installed."
+
+$SUDO ansible-playbook $PBOOKS/prom_pushgateway_install.yaml
+if_error "prometheus pushgateway install failed." return "prometheus pushgateway installed."
 
 $SUDO ansible-playbook $PBOOKS/prometheus_config.yaml
 if_error "prometheus config failed." return "prometheus configured."
@@ -150,8 +153,8 @@ $SUDO ansible-playbook $PBOOKS/grafana_install.yaml
 if_error "grafana install failed." return "grafana installed."
 
 echo ">> install prometheus agent in all hosts..."
-$SUDO ansible-playbook $PBOOKS/node-exporter_install.yaml
-if_error "node-exporter install failed." return "node-exporter installed."
+$SUDO ansible-playbook $PBOOKS/prom_node-exporter_install.yaml
+if_error "prometheus node-exporter install failed." return "prometheus node-exporter installed."
 
 
 # Start Nginx install

@@ -1,0 +1,12 @@
+---
+- hosts: prometheus
+  tasks:
+
+    - name:   install and ensure prometheus pushgateway is at the latest version
+      apt:    name=prometheus-pushgateway state=latest
+      become: true
+
+    - name:    start prometheus pushgateway
+      service:
+        name:  prometheus-pushgateway
+        state: started

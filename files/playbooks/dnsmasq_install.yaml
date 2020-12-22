@@ -1,0 +1,26 @@
+---
+- hosts:  prometheus
+  become: true
+  tasks:
+
+    - name: install dnsmasq 
+      apt:  name=dnsmasq update_cache=yes state=latest
+
+    - name: configure dnsmasq listen-address 
+      lineinfile: dest=/etc/dnsmasq.conf regexp="^#listen-address" line="listen-address=::1,127.0.0.1,192.168.11.14" state=present
+      notify:
+        - restart dnsmasq 
+
+    - name: configure dnsmasq interface 
+      lineinfile: dest=/etc/dnsmasq.conf regexp="^#interface" line="interface=eth1" state=present
+      notify:
+        - restart dnsmasq 
+
+  handlers:
+    - name: restart dnsmasq
+      service: 
+        name=dnsmasq 
+        state=restarted
+    
+# https://www.scaleway.com/en/docs/how-to-install-apache-on-ansible://www.tecmint.com/setup-a-dns-dhcp-server-using-dnsmasq-on-centos-rhel/ 
+

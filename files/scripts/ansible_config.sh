@@ -29,7 +29,7 @@
 # Versions       Date         Programmer, Modification
 # -----------    ----------   -------------------------------------------
 # Version=1.00   07/07/2020 - Carlos Ijalba, Original.
-  Version=1.35 # 13/12/2020 - Carlos Ijalba, Latest updates.
+  Version=1.36 # 22/12/2020 - Carlos Ijalba, Latest updates.
 #
 #########################################################################
 #set -x
@@ -117,15 +117,24 @@ $PSCRIPTS/ssh_trust.sh $USER $PASSWORD "web2.local"
 
 echo ">> doing some quick ansible CHECKS..."
 $SUDO ansible -m ping all
-if_error "ansible PING has failed somewhere." exit "ansible PING OK."
+if_error "check 1: ansible PING has failed somewhere." exit "check 1: ansible PING OK."
 
 $SUDO ansible -m shell -a "cat /etc/issue" all
-if_error "ansible config has failed somewhere." exit "ansible configured OK."
+if_error "check 2: ansible config has failed somewhere." exit "check 2: see OS version through ansible, configured OK."
 
 
 echo ">> setup infrastructure using ansible playbooks..."
 $SUDO ansible-playbook $PBOOKS/apt_upgrade.yaml
 if_error "all servers update/upgrade failed." return "all servers repos have been updated & upgraded, Nice!."
+
+
+# Start DNS server install
+echo ">> setup DNS server (dnsmasq)..."
+$SUDO ansible-playbook $PBOOKS/dnsmasq_install.yaml
+if_error "dnsmasq install failed." return "dnsmasq installed OK."
+
+$SUDO ansible-playbook $PBOOKS/dns_config.yaml
+if_error "dns config in all hosts failed." return "dns configured in all hosts OK."
 
 
 # Start Prometheus & Grafana install

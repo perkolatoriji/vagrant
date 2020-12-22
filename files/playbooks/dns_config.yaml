@@ -1,0 +1,14 @@
+---
+- hosts:  web1.local, web2.local, graf1.local
+  become: true
+  tasks:
+
+    - name: Add our local DNS server 
+      blockinfile:
+        path: /etc/resolv.conf
+        block: |
+          {{ item.name }} {{ item.ip }} 
+        marker: "# {mark} ANSIBLE MANAGED BLOCK {{ item.name }}"
+      loop:
+        - { name: nameserver, ip: 192.168.11.14}
+

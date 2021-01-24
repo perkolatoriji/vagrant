@@ -24,5 +24,9 @@ echo "o-> prometheus-alertmanager up:"
 curl -s 192.168.11.14:9093 | grep  "<title>"
 echo "o-- you can access prometheus-alertmanager via: http://192.168.11.14:9093"
 echo .
+#echo "o-> prometheus-cert-exporter up:"
+#curl -s 192.168.11.14:9117/metrics | grep "certificate" | head -n 1
+#echo "o-- you can access prometheus-cert-exporter metrics via: http://192.168.11.14:9117/metrics"
+echo .
 echo "O-> project check finished."
 

@@ -13,18 +13,27 @@ IaC & DaC Vagrant setup with virtualbox to create 4 machines in a local PC:
 -Instructions: 
 
   This Vagrant infra MUST be executed from where the Vagrantfile and it's associated folders exist,
-  otherwise you will get various errors: (Net::SCP::Error), (Gem::Requirement::BadRequirementError). Update: added a Vagrant config files check, that will throw 
+  otherwise you will get various errors: (Net::SCP::Error), (Gem::Requirement::BadRequirementError). 
+  Update: added a Vagrant config files check, that will throw 
   an "---ERROR:" message when it cannot find varios config files, and report them.
 
-  The passwords are kept in .sec files, which are ignored by git (customized on .gitignore file) and therefore not kept in the repository.
-  In order for this project to work, you will have to create this files with your secret details (user/pass, API keys, etc). Instructions on how to make this .sec
-  files will be given in the files/secrets/README.md file.
+  The passwords are kept in .sec files, which are ignored by git (customized on .gitignore file) and therefore not kept in 
+  the repository.
+  In order for this project to work, you will have to create this files with your secret details (user/pass, API keys, etc). 
+  Instructions on how to make this .sec files will be given in the files/secrets/README.md file.
 
   This files are:
 
   	files/secrets/ansible_user.sec		# contains ansible user, used by config_ansible.sh
 	files/secrets/ansible_pass.sec		# contains ansible user's password, used by config_ansible.sh
 	files/secrets/datadog_api.sec		# contains datadot API KEY, used by config_datadog.sh
+
+-Initial Authorizations:
+
+  Grafana:          Prometheus:
+
+  user: admin       prometheus
+  pass: admin       prometheus
 
 -Author:  Carlos Ijalba. Project Started in 2020.
 

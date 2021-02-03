@@ -2,7 +2,7 @@ echo "O-> Starting project check:"
 echo .
 echo "o-> grafana server up:"
 curl -s 192.168.11.11:3000
-echo "o-- you can access grafana via: http://192.168.11.11:3000"
+echo "o-- you can access grafana via: http://192.168.11.11:3000"D
 echo .
 echo "o-> nginx server up:"
 curl -s 192.168.11.12 | grep "<title>" 
@@ -24,9 +24,14 @@ echo "o-> prometheus-alertmanager up:"
 curl -s 192.168.11.14:9093 | grep  "<title>"
 echo "o-- you can access prometheus-alertmanager via: http://192.168.11.14:9093"
 echo .
+echo "o-> prometheus-blackbox-exporter up:"
+curl -s 192.168.11.14:9115/metrics | grep "HEAD" | head -n 1
+echo "o-- you can access prometheus-blackbox-exporter via: http://192.168.11.14:9115"
+echo "o-- you can access prometheus-blackbox-exporter metrics via: http://192.168.11.14:9115/metrics"
+echo .
 #echo "o-> prometheus-cert-exporter up:"
 #curl -s 192.168.11.14:9117/metrics | grep "certificate" | head -n 1
 #echo "o-- you can access prometheus-cert-exporter metrics via: http://192.168.11.14:9117/metrics"
-echo .
+#echo .
 echo "O-> project check finished."
 

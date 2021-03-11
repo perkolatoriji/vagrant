@@ -32,6 +32,11 @@
         src:  /home/vagrant/config/static-site/
         dest: /var/www/static-site
 
+    - name: copy the status.conf file to /etc/nginx/conf.d/ 
+      copy:
+        src:  /home/vagrant/config/nginx_status.conf
+        dest: /etc/nginx/conf.d/status.conf
+
     - name: restart nginx & enjoy
       service:
         name:  nginx

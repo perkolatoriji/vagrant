@@ -1,0 +1,13 @@
+---
+- hosts:  nginx
+  become: true
+  tasks:
+
+    - name: ensure datadog-agent is at the latest version
+      apt: name=datadog-agent state=latest
+
+    - name: copy the datadog nginx config file 
+      copy:
+        src:  /etc/datadog-agent/conf.d/nginx.d/conf.yaml.example
+        dest: /etc/datadog-agent/conf.d/nginx.d/conf.yaml
+

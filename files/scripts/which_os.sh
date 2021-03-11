@@ -120,7 +120,7 @@ case "$os" in
                               ;;
                   esac
                   cpu=$(uname -m 2>/dev/null)
-                  osd=`for OS in $(find /etc -maxdepth 1 -type f -wholename /etc/\*version 2>/dev/null; do echo ${OS:5:${#OS}-13}; done;`
+                  osd=`for OS in $(find /etc -maxdepth 1 -type f -wholename /etc/\*version 2>/dev/null); do echo ${OS:5:${#OS}-13}; done;`
                   ;;
   *darwin*|*rhapsody*) osf="macosx"
                   cpu=$(uname -p 2>/dev/null)

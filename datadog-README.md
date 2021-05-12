@@ -111,7 +111,7 @@ Datadog monitoring of the DevOps#1 infra:
 	6.- now you have your 4 hosts monitored by datadog and can play with it or compare it against prometheus/grafana.
 
   Once the 15-day period has expired, you can convert to a free plan and carry on using the limited datadog account forever,
-  limited to 5 hosts, no monitors and 1 day of metrics storage.
+  limited to 5 hosts, and 1 day of metrics storage, which is enough for POCs testing and small test environments.
 
 
 -Author:  Carlos Ijalba. Project Started in 2020.

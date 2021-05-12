@@ -2,7 +2,7 @@ echo "O-> Starting project check:"
 echo .
 echo "o-> grafana server up:"
 curl -s 192.168.11.11:3000
-echo "o-- you can access grafana via: http://192.168.11.11:3000"D
+echo "o-- you can access grafana via: http://192.168.11.11:3000"
 echo .
 echo "o-> nginx server up:"
 curl -s 192.168.11.12 | grep "<title>" 

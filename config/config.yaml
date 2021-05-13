@@ -44,11 +44,11 @@ vagrant_box_check_update: true
 #vagrant_box: "hashicorp-vagrant/centos-7.4"
 
 # Bento Boxes, Debian 10:
-vagrant_box: "bento/debian-10.5"
-vagrant_box_version: "202008.16.0"
+#vagrant_box: "bento/debian-10.5"
+#vagrant_box_version: "202008.16.0"
 
-#vagrant_box: "generic/debian10"
-#vagrant_box_version: "3.0.22"
+vagrant_box: "generic/debian10"
+#vagrant_box_version: "3.2.18"
 
 #----- Box Details: ---------------------------
 vagrant_hostname: vagrant

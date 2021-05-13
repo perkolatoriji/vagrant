@@ -1,5 +1,4 @@
 from diagrams import Diagram, Cluster
-
 from diagrams.aws.compute import EC2
 from diagrams.onprem.monitoring import Grafana, Prometheus
 from diagrams.onprem.network import Apache, Nginx

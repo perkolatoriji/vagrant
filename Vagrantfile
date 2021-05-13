@@ -90,7 +90,7 @@ Vagrant.configure(2) do |config|
 
   # use vagrant-vbguest plugin to auto-update the boxes VBGuest additions:
   if Vagrant.has_plugin?("vagrant-vbguest")
-    config.vbguest.auto_update = false  
+    config.vbguest.auto_update = true  
   end
 
   servers.each do |machine|
@@ -98,7 +98,7 @@ Vagrant.configure(2) do |config|
     config.vm.define machine[:hostname] do |node|
 
       node.vm.box         = machine[:box]
-      node.vm.box_version = machine[:box_ver]
+#     node.vm.box_version = machine[:box_ver]
       node.vm.hostname    = machine[:hostname]
       node.vm.network :private_network, ip: machine[:ip]
       node.vm.network "forwarded_port", guest: 22, host: machine[:ssh_port], id: "ssh"

@@ -6,7 +6,7 @@ from diagrams.onprem.iac import Ansible
 
 
 with Diagram("Project DevOps#1", show=True):
-    with Cluster('Project DevOps#1 Infrastructure in vagrant'):
+    with Cluster('Project DevOps#1 Infrastructure in vagrant - VirtualBox VMs'):
         with Cluster('web1'):
           nginx = Nginx('Nginx')
         with Cluster('Web2'):

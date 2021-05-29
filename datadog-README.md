@@ -1,5 +1,5 @@
 # datadog setup
-DevOps#1 project - Carlos Ijalba 2020.
+DevOps#1 project - Carlos Ijalba 2020-2021.
 
 -Description:  
 
@@ -17,7 +17,7 @@ Datadog monitoring of the DevOps#1 infra:
 
   This files are:
 
-	files/secrets/datadog_api.sec		# contains datadot API KEY, used by config_datadog.sh
+	files/secrets/datadog_api.sec		# contains datadog API KEY, used by config_datadog.sh
 
   In order to deploy datadog on this LAB, perform the following instructions:
 
@@ -65,16 +65,8 @@ Datadog monitoring of the DevOps#1 infra:
 		/home/vagrant>$ prom1
 		Linux prom1 4.19.0-10-amd64 #1 SMP Debian 4.19.132-1 (2020-07-24) x86_64
 
-		This system is built by the Bento project by Chef Software
-		More information can be found at https://github.com/chef/bento
-
-		The programs included with the Debian GNU/Linux system are free software;
-		the exact distribution terms for each program are described in the
-		individual files in /usr/share/doc/*/copyright.
-
 		Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
 		permitted by applicable law.
-		Last login: Thu Nov 12 08:53:33 2020 from 10.0.2.2
 
 	  4.2.- run script to install ansible datadog role:
 
@@ -111,7 +103,7 @@ Datadog monitoring of the DevOps#1 infra:
 	6.- now you have your 4 hosts monitored by datadog and can play with it or compare it against prometheus/grafana.
 
   Once the 15-day period has expired, you can convert to a free plan and carry on using the limited datadog account forever,
-  limited to 5 hosts, and 1 day of metrics storage, which is enough for POCs testing and small test environments.
+  limited to 5 hosts, and 1 day of metrics storage, which is enough for PoCs testing and small test environments.
 
 
 -Author:  Carlos Ijalba. Project Started in 2020.

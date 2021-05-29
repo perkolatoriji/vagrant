@@ -1,6 +1,14 @@
 #!/bin/bash
-
-VER=1.02
+#
+# This program's purpose is to load alias on memory to be able to connect
+# to the vagrant boxes. This is because I use MobaXterm and cygwin, and 
+# vagrant ssh does not work under those environments, therefore normal ssh
+# login must be used instead.
+# 
+# to login to prom1 box, just type: "prom1" on the command line and in you are!
+#
+#######################################
+VER=1.03
 
 echo -e "\nO-> Proj. #01 Ver $VER, Loading vagrant SSH vars...\n"
 

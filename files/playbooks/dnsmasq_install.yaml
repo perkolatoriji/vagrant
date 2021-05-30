@@ -22,5 +22,4 @@
         name=dnsmasq 
         state=restarted
     
-# https://www.scaleway.com/en/docs/how-to-install-apache-on-ansible://www.tecmint.com/setup-a-dns-dhcp-server-using-dnsmasq-on-centos-rhel/ 
-
+# https://www.tecmint.com/setup-a-dns-dhcp-server-using-dnsmasq-on-centos-rhel/ 

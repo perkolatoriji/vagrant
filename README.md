@@ -1,13 +1,13 @@
 # vagrant
-DevOps#1 project - Carlos Ijalba 2020.
+DevOps#1 project - Carlos Ijalba 2020-2021.
 
--Description:  Ansible/Web/Prometheus/Grafana LAB
+-Description:  Vagrant/Ansible/Web/Prometheus/Grafana LAB
 
 IaC & DaC Vagrant setup with virtualbox to create 4 machines in a local PC:
 
        1.- web1, with nginx
        2.- web2, with apache2
-       3.- prom1, with prometheus
+       3.- prom1, with prometheus, and ansible control node.
        4.- graf1, with grafana
 
 -Instructions: 

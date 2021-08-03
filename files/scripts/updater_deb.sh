@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-  Copyright="(C) 2020 Carlos Ijalba GPLv3" # <perkolator @ gmail.com>
+  Copyright="(C) 2020-21 Carlos Ijalba GPLv3" # <perkolator @ gmail.com>
 #
 #  This program is free software: you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -27,7 +27,7 @@
 # Versions       Date         Programmer, Modification
 # -----------    ----------   -------------------------------------------
 # Version=1.00   10/08/2020 - Carlos Ijalba, Original.
-  Version=1.00 # 10/08/2020 - Carlos Ijalba, Latest updates.
+  Version=1.01 # 03/08/2021 - Carlos Ijalba, used apt-get instead of apt 
 #
 #########################################################################
 #set -x
@@ -47,15 +47,15 @@ echo ">> set timezone."
 timedatectl set-timezone UTC
 
 echo ">> repo updates."
-apt update
-#apt upgrade -y
-apt autoremove -y
-apt autoclean -y
-apt update
+apt-get update
+#apt-get upgrade -y
+apt-get autoremove -y
+apt-get autoclean -y
+apti-get update
 
 echo ">> essential tools install."
 # Install essential tools.
-apt install htop -y
+apt-get install htop -y
 
 echo ">> add vagrant user to sudo & remove requiretty."
 echo "vagrant        ALL=(ALL)       NOPASSWD: ALL" >> /etc/sudoers

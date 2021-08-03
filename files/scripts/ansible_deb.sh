@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-  Copyright="(C) 2020 Carlos Ijalba GPLv3" # <perkolator @ gmail.com>
+  Copyright="(C) 2020-21 Carlos Ijalba GPLv3" # <perkolator @ gmail.com>
 #
 #  This program is free software: you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -30,7 +30,7 @@
 # Versions       Date         Programmer, Modification
 # -----------    ----------   -------------------------------------------
 # Version=1.00   07/07/2020 - Carlos Ijalba, Original.
-  Version=1.13 # 16/07/2020 - Carlos Ijalba, Latest updates.
+  Version=1.14 # 03/08/2021 - Carlos Ijalba, use apt-get instead of apt 
 #
 #########################################################################
 #set -x
@@ -44,20 +44,20 @@
 echo ">>> Starting ansible_install.sh v$Version script."
 
 echo ">> repo updates."
-apt update 
+apt-get update 
 
 echo ">> ansible install."
 # Install Ansible.
-apt install ansible -y
+apt-get install ansible -y
 
 echo ">> tools install."
 # Install neccesary tools for our scripts.
-apt install expect -y
-apt install dos2unix -y
+apt-get install expect -y
+apt-get install dos2unix -y
 
 echo ">> set timezone."
 # if you have installed a minimal server, you'll need to install tzdata if you want to change to other TZs:
-#apt install tzdata
+#apt-get install tzdata
 # Set timezone to UTC, or if you prefer to use your local TZ, modify this:
 timedatectl set-timezone UTC
 

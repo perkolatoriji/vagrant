@@ -66,4 +66,6 @@ This project will have the following premises:
        
   12.- there are some bash administration scripts, defined in files/scripts. It's usage will be described in separate README files.
 
+  13.- there is a project_check bash script in the root folder of this project, to check that the project's components have been deployed correctly, and how to access them quickly. Once the vagrant up has been launched and the infra is deployed, execute this script to check the project at a higher level than the vagrant's output.
+
 #

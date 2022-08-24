@@ -15,7 +15,7 @@ IaC & DaC Vagrant setup with virtualbox to create 4 machines in a local PC:
   This Vagrant infra MUST be executed from where the Vagrantfile and it's associated folders exist,
   otherwise you will get various errors: (Net::SCP::Error), (Gem::Requirement::BadRequirementError). 
   Update: added a Vagrant config files check, that will throw 
-  an "---ERROR:" message when it cannot find varios config files, and report them.
+  an "---ERROR:" message when it cannot find various config files, and report them.
 
   The passwords are kept in .sec files, which are ignored by git (customized on .gitignore file) and therefore not kept in 
   the repository.
@@ -56,7 +56,7 @@ This project will have the following premises:
 
   8.- the infrastructure must be inmutable, and recorded in git, IaC - Infrastructure as Code.
   
-  9.- the infrastructure will be documented using diagrams, DaC - Documentation as Code. The infra's auto-generated diagram, will be included in the web site.
+  9.- the infrastructure will be documented using diagrams, DaC - Documentation as Code. The infra's auto-generated diagram, will be included in the web site. The generation of the diagram's picture file must be run offline (it's not included in the main program's script as it is not frecuently updated).
   
   10.- The repo is public, but security scanned by GitGuard, to intercept leaked secrets: users, passwords and keys.
   
@@ -66,6 +66,6 @@ This project will have the following premises:
        
   12.- there are some bash administration scripts, defined in files/scripts. It's usage will be described in separate README files.
 
-  13.- there is a project_check bash script in the root folder of this project, to check that the project's components have been deployed correctly, and how to access them quickly. Once the vagrant up has been launched and the infra is deployed, execute this script to check the project at a higher level than the vagrant's output.
+  13.- there is a project_check bash script in the root folder of this project, to check that the project's components have been deployed correctly, and how to access them quickly. Once the vagrant up has been launched and the infra is deployed, execute this script to check the project at a higher level than vagrant's output.
 
 #
